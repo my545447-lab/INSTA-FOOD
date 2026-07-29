@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart-styles.css" />
+    <link rel="stylesheet" href="card-interactions.css" />
+    <title>Document</title>
+</head>
+<div>
+    <div class="top-bar">
+    <span class="top-bar-lang">EN | AR</span>
+    <span class="top-bar-location">📍 الموقع : منية النصر اول شارع المحكمه</span>
+</div>
+<header>
+    <div class="nav-group">
+        <div class="logo-group">
+            <img src="assets/svg/insta food (3).png" alt="Insta Food logo">
+            <h1>INSTA FOOD</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">الصفحة الرئيسية</a>
+                <li><a href="#menu" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'}); return false;">مينيو</a></li>
+                <li><a href="#footer">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </div>
+     <div class="header-actions">
+       <a href="login.html" class="btn-login">👤 تسجيل الدخول</a>
+       <a href="cart.html" class="btn-cart cart-icon-wrapper">
+       🛒 العربه
+       <span class="cart-badge">0</span>
+</a>
+    </div>
+</header>
+<hr />
+
+<section id="hero" class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="assets/VID/MENU.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <a href="#menu" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'}); return false;" class="order-btn">ORDER NOW</a>
+    </div>
+</section>
+<div class="category-pills">
+    <span onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth', block: 'start'})">برجر</span>
+    <span onclick="document.getElementById('pizza-section').scrollIntoView({behavior: 'smooth', block: 'start'})">بيتزا</span>
+    <span onclick="document.getElementById('crepe-section').scrollIntoView({behavior: 'smooth', block: 'start'})">كريب</span>
+    <span onclick="document.getElementById('fried-chicken-section').scrollIntoView({behavior: 'smooth', block: 'start'})">فرايد تشيكن</span>
+    <span onclick="document.getElementById('chicken-rab-section').scrollIntoView({behavior: 'smooth', block: 'start'})">تشيكن راب</span>
+    <span onclick="document.getElementById('kids-section').scrollIntoView({behavior: 'smooth', block: 'start'})">وجبات اطفال</span>
+    <span onclick="document.getElementById('meals-section').scrollIntoView({behavior: 'smooth', block: 'start'})">ميلز</span>
+    <span onclick="document.getElementById('pasta-section').scrollIntoView({behavior: 'smooth', block: 'start'})">باستا</span>
+    <span onclick="document.getElementById('rizo-section').scrollIntoView({behavior: 'smooth', block: 'start'})">ريزو</span>
+    <span onclick="document.getElementById('extras-section').scrollIntoView({behavior: 'smooth', block: 'start'})">اضافات</span>
+    <span onclick="document.getElementById('drinks-section').scrollIntoView({behavior: 'smooth', block: 'start'})">مشروبات</span>
+</div>
+<div id="menu" class="menu-category">
+    <h2 class="category-title">برجر</h2>
+    <div class="product-row">
+
+        <!-- انستا بيف - سعر ثابت -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/insta-beaf.webp" alt="انستا بيف">
+            <h3>انستا بيف</h3>
+            <p class="selected-price">EGP <span>120</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- انستا ستافيد تشيكن - سعر ثابت -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/insta-stafed-chicken.webp" alt="انستا ستافيد تشيكن">
+            <h3>انستا ستافيد تشيكن</h3>
+            <p class="selected-price">EGP <span>175</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- بيج تيستي - 3 أحجام -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/big-tasty.webp" alt="بيج تيستي">
+            <h3>بيج تيستي</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-bigtasty" id="bigtasty-200" value="165" checked>
+                <label for="bigtasty-200">200g</label>
+                <input type="radio" name="price-bigtasty" id="bigtasty-300" value="195">
+                <label for="bigtasty-300">300g</label>
+                <input type="radio" name="price-bigtasty" id="bigtasty-400" value="210">
+                <label for="bigtasty-400">400g</label>
+            </div>
+            <p class="selected-price">EGP <span>165</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- تايجر هاوس - 3 أحجام -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/tiger-hous.webp" alt="تايجر هاوس">
+            <h3>تايجر هاوس</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-tiger" id="tiger-200" value="165" checked>
+                <label for="tiger-200">200g</label>
+                <input type="radio" name="price-tiger" id="tiger-300" value="195">
+                <label for="tiger-300">300g</label>
+                <input type="radio" name="price-tiger" id="tiger-400" value="210">
+                <label for="tiger-400">400g</label>
+            </div>
+            <p class="selected-price">EGP <span>165</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- تشيز فولكانو - 3 أحجام -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/cheese-volcano.webp" alt="تشيز فولكانو">
+            <h3>تشيز فولكانو</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-volcano" id="volcano-200" value="145" checked>
+                <label for="volcano-200">200g</label>
+                <input type="radio" name="price-volcano" id="volcano-300" value="195">
+                <label for="volcano-300">300g</label>
+                <input type="radio" name="price-volcano" id="volcano-400" value="210">
+                <label for="volcano-400">400g</label>
+            </div>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- تشيكن رانش - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/chicken-ranch.webp" alt="تشيكن رانش">
+            <h3>تشيكن رانش</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-ranch" id="ranch-single" value="135" checked>
+                <label for="ranch-single">سنجل</label>
+                <input type="radio" name="price-ranch" id="ranch-double" value="185">
+                <label for="ranch-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- سوبريم تشيكن - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/chicken-soprem.webp" alt="سوبريم تشيكن">
+            <h3>سوبريم تشيكن</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-soprem" id="soprem-single" value="150" checked>
+                <label for="soprem-single">سنجل</label>
+                <input type="radio" name="price-soprem" id="soprem-double" value="195">
+                <label for="soprem-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>150</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- ذا سموكري - 3 أحجام -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/the-smokrey.webp" alt="ذا سموكري">
+            <h3>ذا سموكري</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-smokrey" id="smokrey-200" value="165" checked>
+                <label for="smokrey-200">200g</label>
+                <input type="radio" name="price-smokrey" id="smokrey-300" value="195">
+                <label for="smokrey-300">300g</label>
+                <input type="radio" name="price-smokrey" id="smokrey-400" value="210">
+                <label for="smokrey-400">400g</label>
+            </div>
+            <p class="selected-price">EGP <span>165</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- زينجر هالبينو - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/zinger-halipeno.webp" alt="زينجر هالبينو">
+            <h3>زينجر هالبينو</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-zinger" id="zinger-single" value="145" checked>
+                <label for="zinger-single">سنجل</label>
+                <input type="radio" name="price-zinger" id="zinger-double" value="195">
+                <label for="zinger-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- ستافيد بلو ريبل - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/stafed blue reble.webp" alt="ستافيد بلو ريبل">
+            <h3>ستافيد بلو ريبل</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-reble" id="reble-single" value="145" checked>
+                <label for="reble-single">سنجل</label>
+                <input type="radio" name="price-reble" id="reble-double" value="195">
+                <label for="reble-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- كرانشي سويت شيلي - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/kranchy-sweat-shily.webp" alt="كرانشي سويت شيلي">
+            <h3>كرانشي سويت شيلي</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-kranchy" id="kranchy-single" value="145" checked>
+                <label for="kranchy-single">سنجل</label>
+                <input type="radio" name="price-kranchy" id="kranchy-double" value="195">
+                <label for="kranchy-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- كلاسيك بيف برجر - 3 أحجام -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/classic-beaf-burger.webp" alt="كلاسيك بيف برجر">
+            <h3>كلاسيك بيف برجر</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-classic" id="classic-200" value="140" checked>
+                <label for="classic-200">200g</label>
+                <input type="radio" name="price-classic" id="classic-300" value="165">
+                <label for="classic-300">300g</label>
+                <input type="radio" name="price-classic" id="classic-400" value="190">
+                <label for="classic-400">400g</label>
+            </div>
+            <p class="selected-price">EGP <span>140</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- كوردن بلو - سعر ثابت -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/corden-blue.webp" alt="كوردن بلو">
+            <h3>كوردن بلو</h3>
+            <p class="selected-price">EGP <span>155</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <!-- لوكا تشيز ستايل - سنجل/دبل -->
+        <div class="product-card">
+            <img src="assets/svg/BURGER/loka-cheese-style.webp" alt="لوكا تشيز ستايل">
+            <h3>لوكا تشيز ستايل</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-loka" id="loka-single" value="145" checked>
+                <label for="loka-single">سنجل</label>
+                <input type="radio" name="price-loka" id="loka-double" value="195">
+                <label for="loka-double">دبل</label>
+            </div>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="pizza-section" class="menu-category">
+    <h2 class="category-title">بيتزا</h2>
+    <div class="product-row">
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/chicken-strips.webp" alt="تشيكن استربس">
+            <h3>تشيكن استربس</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-strips" id="strips-medium" value="195" checked>
+                <label for="strips-medium">Medium</label>
+                <input type="radio" name="price-strips" id="strips-large" value="250">
+                <label for="strips-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>195</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/chicken-ranch.webp" alt="تشيكن رانش">
+            <h3>تشيكن رانش</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-pizzaranch" id="pizzaranch-medium" value="195" checked>
+                <label for="pizzaranch-medium">Medium</label>
+                <input type="radio" name="price-pizzaranch" id="pizzaranch-large" value="250">
+                <label for="pizzaranch-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>195</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/cheese-lavres.webp" alt="تشيز لافرز">
+            <h3>تشيز لافرز</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-lavres" id="lavres-medium" value="175" checked>
+                <label for="lavres-medium">Medium</label>
+                <input type="radio" name="price-lavres" id="lavres-large" value="225">
+                <label for="lavres-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>175</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/bebrone.webp" alt="بيبروني">
+            <h3>بيبروني</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-bebrone" id="bebrone-medium" value="190" checked>
+                <label for="bebrone-medium">Medium</label>
+                <input type="radio" name="price-bebrone" id="bebrone-large" value="250">
+                <label for="bebrone-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>190</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/chicken-mix.webp" alt="ميكس تشيكن">
+            <h3>ميكس تشيكن</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-chickenmix" id="chickenmix-medium" value="205" checked>
+                <label for="chickenmix-medium">Medium</label>
+                <input type="radio" name="price-chickenmix" id="chickenmix-large" value="255">
+                <label for="chickenmix-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>205</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/chicken-bbq.webp" alt="تشيكن BBQ">
+            <h3>تشيكن BBQ</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-bbq" id="bbq-medium" value="205" checked>
+                <label for="bbq-medium">Medium</label>
+                <input type="radio" name="price-bbq" id="bbq-large" value="250">
+                <label for="bbq-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>205</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/smoked-beaf-bites.webp" alt="سموك بيف بايتس">
+            <h3>سموك بيف بايتس</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-smokedbeaf" id="smokedbeaf-medium" value="200" checked>
+                <label for="smokedbeaf-medium">Medium</label>
+                <input type="radio" name="price-smokedbeaf" id="smokedbeaf-large" value="250">
+                <label for="smokedbeaf-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>200</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/mix-beaf.webp" alt="ميكس لحوم">
+            <h3>ميكس لحوم</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-mixbeaf" id="mixbeaf-medium" value="200" checked>
+                <label for="mixbeaf-medium">Medium</label>
+                <input type="radio" name="price-mixbeaf" id="mixbeaf-large" value="260">
+                <label for="mixbeaf-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>200</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/chicken-soprem.webp" alt="تشيكن سوبريم">
+            <h3>تشيكن سوبريم</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-pizzasoprem" id="pizzasoprem-medium" value="195" checked>
+                <label for="pizzasoprem-medium">Medium</label>
+                <input type="radio" name="price-pizzasoprem" id="pizzasoprem-large" value="250">
+                <label for="pizzasoprem-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>195</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/hot-dog-kiry.webp" alt="سجق كيري">
+            <h3>سجق كيري</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-hotdog" id="hotdog-medium" value="200" checked>
+                <label for="hotdog-medium">Medium</label>
+                <input type="radio" name="price-hotdog" id="hotdog-large" value="260">
+                <label for="hotdog-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>200</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/sea-food.webp" alt="سي فود">
+            <h3>سي فود</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-seafood" id="seafood-medium" value="320" checked>
+                <label for="seafood-medium">Medium</label>
+                <input type="radio" name="price-seafood" id="seafood-large" value="405">
+                <label for="seafood-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>320</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/pizza/shrimp.webp" alt="جمبري">
+            <h3>جمبري</h3>
+            <div class="size-selector">
+                <input type="radio" name="price-shrimp" id="shrimp-medium" value="330" checked>
+                <label for="shrimp-medium">Medium</label>
+                <input type="radio" name="price-shrimp" id="shrimp-large" value="425">
+                <label for="shrimp-large">Large</label>
+            </div>
+            <p class="selected-price">EGP <span>330</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="crepe-section" class="menu-category">
+    <h2 class="category-title">كريب</h2>
+    <div class="product-row">
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/chicken-baneh.webp" alt="تشيكن بانيه">
+            <h3>تشيكن بانيه</h3>
+            <p class="product-desc">دجاج البانيه المقلي مع الخضروات الطازجة وصوص الثاوذ ايلاند المميز</p>
+            <p class="selected-price">EGP <span>105</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/super-cranchy.webp" alt="سوبر كرانشي">
+            <h3>سوبر كرانشي</h3>
+            <p class="product-desc">كريسبي الدجاج المقلي مع الخضروات الطازجة والاسموكد تركي المميز</p>
+            <p class="selected-price">EGP <span>125</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/maity-zinger.webp" alt="مايتي زنجر">
+            <h3>مايتي زنجر</h3>
+            <p class="product-desc">كريسبي الدجاج المقلي مع الخضروات الطازجة والاسموكد بيف البرجر مع الاسموكد تركي وصوص البيبيريكيو يستي المميز</p>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/smoked-chicken.webp" alt="سموكد تشيكن">
+            <h3>سموكد تشيكن</h3>
+            <p class="product-desc">كريسبي الدجاج المقلي والدلاك الشيدر جبنة درزة الشيهي</p>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/corian-bafflo.webp" alt="كوريان بافلو">
+            <h3>كوريان بافلو</h3>
+            <p class="product-desc">قطع الدجاج المقلي مع صوص البافلو الحار مع الشيدر الجبنة</p>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/cheesy-hous.webp" alt="تشيزي هاوس">
+            <h3>تشيزي هاوس</h3>
+            <p class="product-desc">كريسبي الدجاج المقلي وقطع الموتزاريلا استيكس الشيدر المميز مع الشيدر الشيهي</p>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/chicken-ranch.webp" alt="تشيكن رانش">
+            <h3>تشيكن رانش</h3>
+            <p class="product-desc">كريسبي الدجاج المقلي والاسموكد تركي وصوص الرانش الكريمي المميز</p>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/Shish-Tawook.webp" alt="شيش طاووق">
+            <h3>شيش طاووق</h3>
+            <p class="product-desc">قطع الشيش طاووق المشوي مع الخضروات الطازجة وصوص الثوم الكريمي</p>
+            <p class="selected-price">EGP <span>140</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/mix-checken.webp" alt="ميكس تشيكن">
+            <h3>ميكس تشيكن</h3>
+            <p class="product-desc">كريسة الدجاج المشوي مع الدجاج المشوي والخضروات الطازجة وصوص التاوند ايلاند المميز</p>
+            <p class="selected-price">EGP <span>150</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/mix-beaf.webp" alt="ميكس لحوم">
+            <h3>ميكس لحوم</h3>
+            <p class="product-desc">قطع البرجر المشوي مع شرائح اللحم وقطع الخضروات مع البيبيريكيو يستي المميز</p>
+            <p class="selected-price">EGP <span>150</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/mix-cheese.webp" alt="ميكس تشيز">
+            <h3>ميكس تشيز</h3>
+            <p class="product-desc">تشكيلة من الجبن المميزة (موتزاريلا - اڤالتي - شيدر) مع صوص الشيدر والخضروات</p>
+            <p class="selected-price">EGP <span>105</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/chicken-faheta.webp" alt="فاهيتا فراخ">
+            <h3>فاهيتا فراخ</h3>
+            <p class="product-desc">صدور الدجاج المشوي مع الخضروات وصوص البيبيريكيو المدخن</p>
+            <p class="selected-price">EGP <span>140</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/Grilled-chicken-breasts.webp" alt="مشوي صدور">
+            <h3>مشوي صدور</h3>
+            <p class="product-desc">صدور الدجاج المشوي مع شرائح الاسموكد تركي وصوص الرانش الكريمي</p>
+            <p class="selected-price">EGP <span>140</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/cheese-burger.webp" alt="تشيز برجر">
+            <h3>تشيز برجر</h3>
+            <p class="product-desc">شرائح البرجر المشوي مع الخضروات الطازجة وصوص الشيدر الكريمي</p>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/chrimpo.webp" alt="شريمبو">
+            <h3>شريمبو</h3>
+            <p class="product-desc">كرانشي الجمبري المقلي مع صوص الراش الكريمي</p>
+            <p class="selected-price">EGP <span>230</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/crepe/Grilled-sausage.webp" alt="سجق مشوي">
+            <h3>سجق مشوي</h3>
+            <p class="product-desc">قطع السجق المشوي مع الخضروات الطازجة وصوص الميلت الترش الشهي</p>
+            <p class="selected-price">EGP <span>140</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="fried-chicken-section" class="menu-category">
+    <h2 class="category-title">فرايد تشيكن</h2>
+    <div class="product-row">
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/snack_box_135_bun.webp" alt="سناك بوكس">
+            <h3>سناك بوكس</h3>
+            <p class="product-desc">2 قطعة دجاج - خبز - بطاطس - ثومية</p>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/dinner_box_185_bun.webp" alt="دينر بوكس">
+            <h3>دينر بوكس</h3>
+            <p class="product-desc">3 قطعة دجاج - خبز - بطاطس - ثومية - كولوسلو</p>
+            <p class="selected-price">EGP <span>185</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/super_dinner_235_bun.webp" alt="سوبر دينر">
+            <h3>سوبر دينر</h3>
+            <p class="product-desc">4 قطعة دجاج - خبز - بطاطس - ثومية - كولوسلو</p>
+            <p class="selected-price">EGP <span>235</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/family_box_460_bun.webp" alt="فاميلي بوكس">
+            <h3>فاميلي بوكس</h3>
+            <p class="product-desc">8 قطعة دجاج - خبز - بطاطس - ثومية - كولوسلو - لتر مشروب غازي</p>
+            <p class="selected-price">EGP <span>460</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/super_family_660_bun.webp" alt="سوبر فاميلي">
+            <h3>سوبر فاميلي</h3>
+            <p class="product-desc">12 قطعة دجاج - خبز - بطاطس - ثومية - كولوسلو - لتر مشروب غازي</p>
+            <p class="selected-price">EGP <span>660</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/strips_meal_120_bun.webp" alt="استريبس ميل">
+            <h3>استريبس ميل</h3>
+            <p class="product-desc">3 قطعة استربس - بطاطس - ثومية</p>
+            <p class="selected-price">EGP <span>120</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/strips_box_175_bun.webp" alt="استريبس بوكس">
+            <h3>استريبس بوكس</h3>
+            <p class="product-desc">4 قطعة استربس - بطاطس - ثومية - كولوسلو</p>
+            <p class="selected-price">EGP <span>175</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/fried chicken/family_strips_405_bun.webp" alt="فاميلي استريبس">
+            <h3>فاميلي استريبس</h3>
+            <p class="product-desc">12 قطعة استربس - بطاطس - ثومية - كولوسلو</p>
+            <p class="selected-price">EGP <span>405</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="chicken-rab-section" class="menu-category">
+    <h2 class="category-title">تشيكن راب</h2>
+    <div class="product-row">
+
+        <div class="product-card">
+            <img src="assets/svg/chicken-rab/hot-dog-roll.webp" alt="سجق رول">
+            <h3>سجق رول</h3>
+            <p class="product-desc">قطع السجق المشوي مع الخضروات الطازجة وصوص الميلت تشيز الشهي</p>
+            <p class="selected-price">EGP <span>135</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/chicken-rab/chicken-rab-tortiia.webp" alt="تورتيلا تشيكن راب">
+            <h3>تورتيلا تشيكن راب</h3>
+            <p class="product-desc">قطع الاستربس الشهية مع الخضروات الطازجة وصوص الثاوزند ايلاند المميز</p>
+            <p class="selected-price">EGP <span>125</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/chicken-rab/tortiia-cordeb-blue.webp" alt="كوردن بلو راب">
+            <h3>كوردن بلو راب</h3>
+            <p class="product-desc">قطع الكوردن بلو الشهية مع الخضروات الطازجة وصوص الثاوزند ايلاند المميز</p>
+            <p class="selected-price">EGP <span>145</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="kids-section" class="menu-category">
+    <h2 class="category-title">وجبات اطفال</h2>
+    <div class="product-row">
+
+        <div class="product-card">
+            <img src="assets/svg/kids/kids-beaf-burger.webp" alt="كيدز بيف برجر">
+            <h3>كيدز بيف برجر</h3>
+            <p class="product-desc">خبز - قطعة بيف - كاتشب - عصير - بطاطس</p>
+            <p class="selected-price">EGP <span>120</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/kids/kids-cihcken-burger.webp" alt="كيدز تشيكن برجر">
+            <h3>كيدز تشيكن برجر</h3>
+            <p class="product-desc">خبز - قطعة تشيكن - كاتشب - عصير - بطاطس</p>
+            <p class="selected-price">EGP <span>120</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/svg/kids/kids-strips-meal.webp" alt="كيدز سترابس ميل">
+            <h3>كيدز سترابس ميل</h3>
+            <p class="product-desc">خبز - قطعتين سترابس - كاتشب - عصير - بطاطس</p>
+            <p class="selected-price">EGP <span>120</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+
+    </div>
+</div>
+<div id="meals-section" class="menu-category">
+    <h2 class="category-title">ميلز</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <img src="assets/svg/meals/cranchy-chrimp.webp" alt="كرانشي شريمب">
+            <h3>كرانشي شريمب</h3>
+            <p class="product-desc">300 جرام من الجمبري المقلي مع صوص الجمبري المميز، نقدم مع صوص بيسك</p>
+            <p class="selected-price">EGP <span>410</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/fried-smoked-chicken.webp" alt="فرايد سموكد تشيكن">
+            <h3>فرايد سموكد تشيكن</h3>
+            <p class="product-desc">4 قطع من الدجاج المقلي (حار أو بارد حسب اختيارك) مع شرائح السموكد بيف وصوص الشيدر الكريمي، نقدم مع تشيز ميلت بن</p>
+            <p class="selected-price">EGP <span>230</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/cordn-blue.webp" alt="كوردن بلو">
+            <h3>كوردن بلو</h3>
+            <p class="product-desc">صدور دجاج مقلية محشوة بمكس الجبن الشهي وشرائح السموكد تركي والسموكد بيف، نقدم مع وايت بن</p>
+            <p class="selected-price">EGP <span>230</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/tay-sweat-chilly.webp" alt="تاي سويت شيلي">
+            <h3>تاي سويت شيلي</h3>
+            <p class="product-desc">صدور دجاج مقلية على الطريقة التايلاندية مع صوص السويت شيلي، مع خضار مشوي، نقدم مع أوزاير رايس وسبرينج رول</p>
+            <p class="selected-price">EGP <span>250</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/chicken-blue-reble.webp" alt="تشيكن بلو ريبل">
+            <h3>تشيكن بلو ريبل</h3>
+            <p class="product-desc">صدور دجاج مشوية محشية بمكس جبن انستا المميز وشرائح تركي مدخن وبريسولا، مع صوص زبدة الأعشاب الفرنسية، نقدم مع وايت رايس</p>
+            <p class="selected-price">EGP <span>230</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/mix-cheese.webp" alt="ميكس تشيكن">
+            <h3>ميكس تشيكن</h3>
+            <p class="product-desc">قطعة بلو ريبل مع دجاج كانتري ستايل، نقدم مع صوص جبني كريمي وبيني وايت صوص</p>
+            <p class="selected-price">EGP <span>245</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/meals/tekatsu.webp" alt="تيكاتسو">
+            <h3>تيكاتسو</h3>
+            <p class="product-desc">صدور دجاج مقلية مغطاة بصوص الفلفل المدخن، مع مزيج من اللحوم المدخنة المصنعة منزليًا وطبقة من الشيدر الغني، نقدم مع وايت رايس وبطاطس فرايز</p>
+            <p class="selected-price">EGP <span>255</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+    </div>
+</div>
+<div id="pasta-section" class="menu-category">
+    <h2 class="category-title">باستا</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <img src="assets/svg/pasta/negrisku.webp" alt="نجرسكو">
+            <h3>نجرسكو</h3>
+            <p class="product-desc">صدور الدجاج المشوية مع الوايت صوص الكريمي مغطاة بطبقة جبن انستا فود المميزة</p>
+            <p class="selected-price">EGP <span>180</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/pasta/kremy-cranshy-chicken.webp" alt="كريمي كرانشي تشيكن">
+            <h3>كريمي كرانشي تشيكن</h3>
+            <p class="product-desc">4 قطع من الدجاج المقلي (حار أو بارد حسب اختيارك) مع صوص السموكد بيف والشيدر الكريمي، نقدم مع تشيز ميلت بن</p>
+            <p class="selected-price">EGP <span>180</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/pasta/the-smokry-pan.webp" alt="ذا سموكي بان">
+            <h3>ذا سموكي بان</h3>
+            <p class="product-desc">قطع الهوت دوج والسموكد بيف والسموكد تركي مع شرائح البيبروني المميزة، مغطاة بطبقة جبن انستا فود المميزة</p>
+            <p class="selected-price">EGP <span>175</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/pasta/shrimp-pan.webp" alt="شريمب بان">
+            <h3>شريمب بان</h3>
+            <p class="product-desc">قطع الجمبري المشوي مع بيسك الجمبري المميز والكريمة الطازجة مغطاة بطبقة جبن انستا فود الخاصة</p>
+            <p class="selected-price">EGP <span>310</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/pasta/browen-beaf-burger.webp" alt="بروان بيف برجر">
+            <h3>بروان بيف برجر</h3>
+            <p class="product-desc">أحد البرجر الطازجي المشوي على الفحم مع صوص البراون المميز وجبن انستا فود الخاصة</p>
+            <p class="selected-price">EGP <span>195</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+    </div>
+</div>
+<div id="rizo-section" class="menu-category">
+    <h2 class="category-title">ريزو</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <img src="assets/svg/RIZO/FRIED-SHRIMP-RIZO.webp" alt="فرايد شريمب ريزو">
+            <h3>فرايد شريمب ريزو</h3>
+            <p class="product-desc">قطع الجمبري المقلية مع الاعشاب الطازجة وصوص الريش الكريمي</p>
+            <p class="selected-price">EGP <span>165</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/RIZO/FAHITA-RIZO.webp" alt="فاهيتا ريزو">
+            <h3>فاهيتا ريزو</h3>
+            <p class="product-desc">صدور الدجاج المشوية مع الخضروات الطازجة وصوص الباربكيو الشهي</p>
+            <p class="selected-price">EGP <span>115</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/RIZO/STRIPS-RIZO.webp" alt="سترپس ريزو">
+            <h3>سترپس ريزو</h3>
+            <p class="product-desc">قطع الدجاج المقلية مع صوص انستا فود المميز</p>
+            <p class="selected-price">EGP <span>105</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+    </div>
+</div>
+<div id="extras-section" class="menu-category">
+    <h2 class="category-title">مقبلات</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <img src="assets/svg/اضافات/motzarela-sticks.webp" alt="موتزريلا ستكس">
+            <h3>موتزريلا ستكس</h3>
+            <p class="selected-price">EGP <span>80</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/onion-ring.webp" alt="اونيون رينج">
+            <h3>اونيون رينج</h3>
+            <p class="selected-price">EGP <span>70</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/cheder-halipino.webp" alt="شيدر هاليبينو">
+            <h3>شيدر هاليبينو</h3>
+            <p class="selected-price">EGP <span>80</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/freskas.webp" alt="فريسكاس">
+            <h3>فريسكاس</h3>
+            <p class="selected-price">EGP <span>70</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/fries.webp" alt="فرايز">
+            <h3>فرايز</h3>
+            <p class="selected-price">EGP <span>40</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/cheese-fries.webp" alt="فرايز تشيز">
+            <h3>فرايز تشيز</h3>
+            <p class="selected-price">EGP <span>80</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/fries-strips.webp" alt="فرايز استربس">
+            <h3>فرايز استربس</h3>
+            <p class="selected-price">EGP <span>95</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/اضافات/fries-texas.webp" alt="تكساس فرايز">
+            <h3>تكساس فرايز</h3>
+            <p class="selected-price">EGP <span>95</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+    </div>
+</div>
+<div id="drinks-section" class="menu-category">
+    <h2 class="category-title">مشروبات</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <img src="assets/svg/drinks/water-10pound.webp" alt="مياة صغيرة">
+            <h3>مياة صغيرة</h3>
+            <p class="selected-price">EGP <span>10</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/drinks/water-15pound.webp" alt="مياة كبيرة">
+            <h3>مياة كبيرة</h3>
+            <p class="selected-price">EGP <span>15</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/drinks/v-cola-25pound.webp" alt="مشروب غازي">
+            <h3>مشروب غازي</h3>
+            <p class="selected-price">EGP <span>25</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+        <div class="product-card">
+            <img src="assets/svg/drinks/1-letr-pepsi.webp" alt="لتر مشروب غازي">
+            <h3>لتر مشروب غازي</h3>
+            <p class="selected-price">EGP <span>50</span></p>
+            <button class="add-btn">+ اضافة</button>
+        </div>
+    </div>
+</div>
+<HR />
+<section id="مينيو" class="menu-section">
+</section>
+<footer id="footer" class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="logo-group">
+                <img src="assets/svg/insta food (3).png" alt="Insta Food Logo">
+                <h2 class="footer-logo-text">INSTA FOOD</h2>
+            </div>
+            <p class="footer-tagline">طعام لذيذ طازج يصل إلى باب منزلك.</p>
+        </div>
+
+        <div class="footer-social">
+            <p class="follow-us">تابعنا</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/instafood.eg" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (3).png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/instafood697" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (4).png" alt="Instagram">
+                </a>
+            </div>
+            <p class="call-us">Call us: 01092009691</p>
+        </div>
+    </div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.size-selector input[type="radio"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const card = this.closest('.product-card');
+            const priceSpan = card.querySelector('.selected-price span');
+            priceSpan.textContent = this.value;
+        });
+    });
+});
+</script>
+
+<script>
+window.addEventListener('load', function() {
+    if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }
+});
+</script>
+
+<script src="cart.js"></script> 
+
+</div>
+</html>

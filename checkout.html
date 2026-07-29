@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart-styles.css" />
+    <link rel="stylesheet" href="checkout-styles.css" />
+    <title>إتمام الطلب - INSTA FOOD</title>
+</head>
+<body>
+
+    <!-- ==== حط هنا نفس الـ top-bar والـ header بتوعك من index.html ==== -->
+    <div class="top-bar">
+        <!-- ... نفس المحتوى اللي عندك ... -->
+    </div>
+    <header>
+        <!-- ... نفس المحتوى اللي عندك ... -->
+    </header>
+    <!-- ============================================================ -->
+
+    <main class="checkout-page">
+        <div class="checkout-inner">
+            <h1>إتمام الطلب</h1>
+
+            <div class="checkout-layout">
+
+                <!-- ===== نموذج بيانات العميل ===== -->
+                <form id="checkout-form" class="checkout-form">
+
+                    <div class="form-section">
+                        <h2>بيانات التوصيل</h2>
+
+                        <label for="customer-name">الاسم بالكامل</label>
+                        <input type="text" id="customer-name" name="customer-name" required placeholder="اكتب اسمك">
+
+                        <label for="customer-phone">رقم التليفون</label>
+                        <input type="tel" id="customer-phone" name="customer-phone" required placeholder="01xxxxxxxxx">
+
+                        <label for="customer-area">المنطقة</label>
+                        <input type="text" id="customer-area" name="customer-area" required placeholder="مثال: منية النصر">
+
+                        <label for="customer-address">العنوان بالتفصيل</label>
+                        <textarea id="customer-address" name="customer-address" required placeholder="اسم الشارع - رقم المبنى - علامة مميزة"></textarea>
+
+                        <label for="customer-notes">ملاحظات (اختياري)</label>
+                        <textarea id="customer-notes" name="customer-notes" placeholder="أي طلب خاص أو ملاحظة للطلب"></textarea>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>طريقة الدفع</h2>
+                        <div class="payment-option-fixed">
+                            💵 الدفع كاش عند الاستلام
+                        </div>
+                    </div>
+
+                </form>
+
+                <!-- ===== ملخص الطلب ===== -->
+                <div class="checkout-summary">
+                    <h2>ملخص الطلب</h2>
+                    <div id="checkout-items"></div>
+                    <hr>
+                    <div class="summary-row total">
+                        <span>الاجمالي</span>
+                        <span id="checkout-total">EGP 0</span>
+                    </div>
+                    <button type="submit" form="checkout-form" class="confirm-checkout-btn">
+                        تأكيد الطلب 
+                    </button>
+                    <p class="checkout-note">هيتم تحويلك لواتساب لتأكيد الطلب مباشرة معانا.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==== حط هنا الفوتر بتاعك ==== -->
+    <footer class="site-footer">
+        <!-- ... نفس المحتوى اللي عندك ... -->
+    </footer>
+
+    <script src="cart.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

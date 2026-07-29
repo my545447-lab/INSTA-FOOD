@@ -1,0 +1,187 @@
+/* ============================================
+   Insta Food - Checkout Page Styles
+   ============================================ */
+
+.checkout-page {
+    background-color: rgb(248, 248, 248);
+    padding: 2rem 5% 4rem;
+    min-height: 60vh;
+}
+
+.checkout-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.checkout-inner h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== فورم بيانات العميل ===== */
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-section {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+}
+
+.form-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.form-section label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+}
+
+.form-section label:first-of-type {
+    margin-top: 0;
+}
+
+.form-section input[type="text"],
+.form-section input[type="tel"],
+.form-section textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-section input:focus,
+.form-section textarea:focus {
+    outline: none;
+    border-color: rgb(220, 30, 30);
+}
+
+.form-section textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* ===== طريقة الدفع ===== */
+.payment-option-fixed {
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    font-weight: bold;
+    background-color: rgba(220, 30, 30, 0.05);
+    border-color: rgb(220, 30, 30);
+}
+
+/* ===== ملخص الطلب ===== */
+.checkout-summary {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+}
+
+.checkout-summary h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.checkout-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+}
+
+.checkout-item-name {
+    color: rgb(60, 60, 60);
+}
+
+.checkout-item-qty {
+    color: rgb(140, 140, 140);
+    font-size: 0.85rem;
+}
+
+.checkout-item-price {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.checkout-summary hr {
+    border: none;
+    border-top: 1px solid rgb(230, 230, 230);
+    margin: 1rem 0;
+}
+
+.summary-row.total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.confirm-checkout-btn {
+    width: 100%;
+    background-color: rgb(255, 0, 0); /* لون واتساب */
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.confirm-checkout-btn:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+.confirm-checkout-btn:disabled {
+    background-color: rgb(200, 200, 200);
+    cursor: not-allowed;
+}
+
+.checkout-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgb(140, 140, 140);
+    margin-top: 0.8rem;
+}
+
+.empty-checkout-msg {
+    text-align: center;
+    color: rgb(140, 140, 140);
+    padding: 1rem 0;
+}
+
+.empty-checkout-msg a {
+    color: rgb(220, 30, 30);
+    font-weight: bold;
+}

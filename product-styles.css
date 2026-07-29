@@ -1,0 +1,280 @@
+/* ============================================
+   Insta Food - Product Page Styles
+   ============================================ */
+
+.product-page {
+    background-color: rgb(248, 248, 248);
+    padding: 2rem 5% 8rem; /* مساحة تحت عشان الشريط الثابت */
+    min-height: 60vh;
+}
+
+.product-page-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== المنتج الأساسي ===== */
+.product-main {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.product-main img {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.product-main-info h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-main-info p {
+    color: rgb(120, 120, 120);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+.product-base-price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: rgb(220, 30, 30);
+    margin-bottom: 0.8rem;
+}
+
+/* ===== اختيار الحجم ===== */
+.size-picker {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.size-btn {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgb(210, 210, 210);
+    background-color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.size-btn.active {
+    background-color: rgb(220, 30, 30);
+    color: white;
+    border-color: rgb(220, 30, 30);
+}
+
+/* ===== عداد الكمية (عام) ===== */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.qty-control .qty-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgb(210, 210, 210);
+    background-color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.qty-control .qty-btn.plus {
+    background-color: rgb(220, 30, 30);
+    color: white;
+    border: none;
+}
+
+.qty-control .qty-btn.plus:hover {
+    background-color: rgb(190, 20, 20);
+}
+
+.qty-control .qty-btn.minus:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.qty-control .qty-value {
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.qty-control.small .qty-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+}
+
+.qty-control.small .qty-value {
+    font-size: 0.95rem;
+    min-width: 18px;
+}
+
+/* ===== قسم الاضافات/المشروبات ===== */
+.addon-section {
+    margin-bottom: 1.5rem;
+}
+
+.addon-section h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+}
+
+.addon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.addon-item {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.addon-item img {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.addon-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.addon-price {
+    font-weight: bold;
+    color: rgb(80, 80, 80);
+    flex-shrink: 0;
+}
+
+/* ===== الشريط الثابت تحت (الاجمالي + الإضافة + العربة) ===== */
+.product-footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    z-index: 900;
+}
+
+.product-total-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: rgb(120, 120, 120);
+    flex-shrink: 0;
+}
+
+.product-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+}
+
+.add-all-btn {
+    background-color: rgb(220, 30, 30);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.add-all-btn:hover {
+    background-color: rgb(190, 20, 20);
+}
+
+.go-to-cart-btn {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: 1px solid rgb(210, 210, 210);
+    padding: 0.9rem 1.3rem;
+    border-radius: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.go-to-cart-btn:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+/* ===== رسالة تأكيد سريعة (Toast) ===== */
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: black;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 500px) {
+    .product-main {
+        flex-direction: column;
+        text-align: center;
+    }
+    .product-main img {
+        width: 100%;
+        height: 180px;
+    }
+    .size-picker,
+    .qty-control {
+        justify-content: center;
+    }
+    .product-footer-bar {
+        flex-wrap: wrap;
+    }
+}

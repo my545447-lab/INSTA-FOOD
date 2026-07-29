@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+h1{
+    color: rgb(0, 0, 0);
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 2rem 1.5rem;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgb(240, 240, 240);
+}
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    padding-inline-start: 0;
+}
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header img {
+    width: 48px;
+    height: auto;
+}
+body {
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* removed empty ruleset to fix linter warning */
+nav a,
+nav a:visited,
+nav a:active {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+nav a:hover {
+    color: rgb(165, 53, 8);
+}
+/* ===== Hero Section ===== */
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    max-height: 550px;
+    overflow: hidden;
+    background-color: black;
+}
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 12%;
+    left: 5%;
+    z-index: 2;
+}
+
+.order-btn {
+    display: inline-block;
+    background-color: rgb(230, 180, 70);
+    color: black;
+    padding: 1rem 3rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+}
+
+.order-btn:hover {
+    background-color: rgb(210, 160, 55);
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 2rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: transparent;
+    color: black;
+    border: 1px solid rgb(180, 180, 180);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.btn-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: rgb(220, 30, 30);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-cart:hover {
+    background-color: rgb(190, 20, 20);
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 0.5rem 2rem;
+    font-size: 0.85rem;
+}
+
+.top-bar span {
+    opacity: 0.9;
+}
+.category-pills {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 1.5rem 5%;
+}
+
+.category-pills span {
+    background-color: white;
+    border: 1px solid rgb(220, 220, 220);
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-pills span:hover {
+    background-color: rgb(240, 240, 240);
+}
+.menu-category {
+    padding: 2rem 5%;
+}
+
+.category-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-row {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.product-card {
+    flex: 0 0 240px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding-bottom: 1rem;
+}
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: rgb(250, 250, 250);
+}
+.product-card h3 {
+    font-size: 1.1rem;
+    margin: 0.8rem 1rem 0.4rem;
+}
+
+.size-selector {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.6rem 1rem;
+    flex-wrap: wrap;
+}
+
+.size-selector input[type="radio"] {
+    display: none;
+}
+
+.size-selector label {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.size-selector input[type="radio"]:checked + label {
+    background-color: rgb(220, 30, 30);
+    color: white;
+    border-color: rgb(220, 30, 30);
+}
+
+.selected-price {
+    margin: 0.5rem 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.add-btn {
+    display: block;
+    margin: 0 1rem;
+    background-color: rgb(220, 30, 30);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.add-btn:hover {
+    background-color: rgb(190, 20, 20);
+}
+.product-desc {
+    font-size: 0.85rem;
+    color: rgb(100, 100, 100);
+    margin: 0 1rem 0.6rem;
+    line-height: 1.5;
+}
+.site-footer {
+    background-color: black;
+    color: white;
+    padding: 3rem 5% 2rem;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    max-width: 400px;
+}
+
+.footer-brand .logo-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.footer-brand img {
+    width: 48px;
+    height: auto;
+}
+
+.footer-logo-text {
+    color: rgb(220, 30, 30);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.footer-tagline {
+    color: rgb(200, 200, 200);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.footer-social {
+    text-align: right;
+}
+
+.follow-us {
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background-color: rgb(40, 40, 40);
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.social-icon:hover {
+    background-color: rgb(220, 30, 30);
+}
+
+.call-us {
+    color: rgb(200, 200, 200);
+    font-size: 0.9rem;
+}
+.social-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
