@@ -1,8 +1,3 @@
-// ============================================
-// Insta Food - Order Confirmation Page
-// بيعرض تفاصيل آخر طلب اتبعت
-// ============================================
-
 (function () {
     const ORDER_STORAGE_KEY = 'insta-food-last-order';
 
@@ -50,21 +45,11 @@
             )
             .join('');
 
-        // حالة إرسال الواتساب
-        const whatsappStatusHtml = order.whatsappSent
-            ? `<div class="whatsapp-status success">✅ تم إرسال الطلب للمطعم على الواتساب</div>`
-            : `<div class="whatsapp-status error">
-                ⚠️ حصل مشكلة في إرسال الواتساب
-                <br><small>اتصل بالمطعم مباشرة للتأكيد</small>
-               </div>`;
-
         container.innerHTML = `
             <div class="confirmation-card">
                 <div class="confirmation-check">✅</div>
                 <h1>تم استلام طلبك بنجاح</h1>
                 <p class="confirmation-sub">هنتواصل معاك قريب لتأكيد الطلب والتوصيل</p>
-
-                ${whatsappStatusHtml}
 
                 <div class="confirmation-order-id">رقم الطلب: <strong>${escapeHtml(order.orderId)}</strong></div>
                 <div class="confirmation-time">${formatTime(order.orderTime)}</div>

@@ -11,30 +11,69 @@
 </head>
 <body>
 
-    <!-- ==== حط هنا نفس الـ top-bar والـ header بتوعك من index.html ==== -->
-    <div class="top-bar">
-        <!-- ... نفس المحتوى اللي عندك ... -->
-    </div>
-    <header>
-        <!-- ... نفس المحتوى اللي عندك ... -->
-    </header>
-    <!-- ============================================================ -->
+<div class="top-bar">
+    <span class="top-bar-lang">EN | AR</span>
+    <span class="top-bar-location">📍 الموقع : منية النصر اول شارع المحكمه</span>
+</div>
 
-    <main class="confirmation-page">
-        <div class="confirmation-inner">
-
-            <div id="confirmation-content">
-                <!-- المحتوى بيتحط هنا تلقائيًا بواسطة order-confirmation.js -->
-            </div>
-
+<header>
+    <div class="nav-group">
+        <div class="logo-group">
+            <img src="assets/svg/insta food (3).png" alt="Insta Food logo">
+            <h1>INSTA FOOD</h1>
         </div>
-    </main>
+        <nav>
+            <ul>
+                <a href="index.html">الصفحة الرئيسية</a>
+                <li><a href="index.html#menu">مينيو</a></li>
+                <li><a href="index.html#footer">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-actions">
+        <a href="login.html" class="btn-login">👤 تسجيل الدخول</a>
+        <a href="cart.html" class="btn-cart cart-icon-wrapper">
+            🛒 العربه
+            <span class="cart-badge">0</span>
+        </a>
+    </div>
+</header>
 
-    <!-- ==== حط هنا الفوتر بتاعك ==== -->
-    <footer class="site-footer">
-        <!-- ... نفس المحتوى اللي عندك ... -->
-    </footer>
+<hr />
 
-    <script src="order-confirmation.js"></script>
+<main class="confirmation-page">
+    <div class="confirmation-inner">
+        <div id="confirmation-content">
+            <!-- المحتوى بيتحط هنا تلقائيًا بواسطة order-confirmation.js -->
+        </div>
+    </div>
+</main>
+
+<footer id="footer" class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="logo-group">
+                <img src="assets/svg/insta food (3).png" alt="Insta Food Logo">
+                <h2 class="footer-logo-text">INSTA FOOD</h2>
+            </div>
+            <p class="footer-tagline">طعام لذيذ طازج يصل إلى باب منزلك.</p>
+        </div>
+        <div class="footer-social">
+            <p class="follow-us">تابعنا</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/instafood.eg" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (3).png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/instafood697" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (4).png" alt="Instagram">
+                </a>
+            </div>
+            <p class="call-us">Call us: 01092009691</p>
+        </div>
+    </div>
+</footer>
+
+<script src="cart.js"></script>
+<script src="order-confirmation.js"></script>
 </body>
 </html>
