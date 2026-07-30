@@ -148,15 +148,15 @@
         document.getElementById('checkout-form').addEventListener('submit', handleSubmit);
     });
 })();
-// 1. كود الإعدادات الخاص بمشروعك
 const firebaseConfig = { 
   apiKey: "AIzaSyBnmncW1VG-_O1APFudasVjc-Gt0c8Ddw0", 
-  authDomain: "://firebaseapp.com", 
+  authDomain: "://firebaseapp.com",  
   projectId: "insta-food-8ec99", 
   storageBucket: "insta-food-8ec99.firebasestorage.app", 
   messagingSenderId: "92369606140", 
   appId: "1:92369606140:web:055509eeab4885538bce79" 
 };
+
 
 // 2. تهيئة Firebase وقاعدة البيانات بالطريقة المتوافقة العادية
 firebase.initializeApp(firebaseConfig);
