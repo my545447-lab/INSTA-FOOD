@@ -2,14 +2,16 @@
 // Insta Food - Login Page Logic
 // ============================================
 
-import {
-    auth,
-    googleProvider,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signInWithPopup,
-    onAuthStateChanged,
-} from './firebase-auth.js';
+import { signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+async function googleSignIn() {
+    try {
+        await signInWithRedirect(auth, googleProvider);
+    } catch (err) {
+        const msg = translateError(err.code);
+        if (msg) showError(msg);
+    }
+}
 
 import { updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
@@ -19,6 +21,12 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = 'index.html';
     }
 });
+
+getRedirectResult(auth).then((result) => {
+    if (result?.user) {
+        window.location.href = 'index.html';
+    }
+}).catch(() => {});
 
 function showError(msg) {
     const el = document.getElementById('auth-error');
