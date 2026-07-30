@@ -1,7 +1,16 @@
-    }
-}
+import {
+    auth,
+    googleProvider,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+} from './firebase-auth.js';
 
-import { updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+    updateProfile,
+    signInWithRedirect,
+    getRedirectResult,
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 // لو المستخدم مسجل دخول بالفعل، وديه للصفحة الرئيسية
 onAuthStateChanged(auth, (user) => {
