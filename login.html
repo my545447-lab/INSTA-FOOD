@@ -4,11 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
-    <title>تسجيل الدخول - Insta Food</title>
+    <link rel="stylesheet" href="login-styles.css" />
+    <title>تسجيل الدخول - INSTA FOOD</title>
 </head>
 <body>
 
-<h1>تسجيل الدخول</h1>
+<div class="top-bar">
+    <span class="top-bar-lang">EN | AR</span>
+    <span class="top-bar-location">📍 الموقع : منية النصر اول شارع المحكمه</span>
+</div>
 
+<header>
+    <div class="nav-group">
+        <div class="logo-group">
+            <img src="assets/svg/insta food (3).png" alt="Insta Food logo">
+            <h1>INSTA FOOD</h1>
+        </div>
+        <nav>
+            <ul>
+                <a href="index.html">الصفحة الرئيسية</a>
+                <li><a href="index.html#menu">مينيو</a></li>
+                <li><a href="index.html#footer">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-actions">
+        <a href="login.html" class="btn-login">👤 تسجيل الدخول</a>
+        <a href="cart.html" class="btn-cart cart-icon-wrapper">
+            🛒 العربه
+            <span class="cart-badge">0</span>
+        </a>
+    </div>
+</header>
+
+<hr />
+
+<main class="login-page">
+    <div class="login-card">
+
+        <!-- تبويبات تسجيل الدخول / إنشاء حساب -->
+        <div class="login-tabs">
+            <button class="tab-btn active" id="tab-login">تسجيل الدخول</button>
+            <button class="tab-btn" id="tab-register">حساب جديد</button>
+        </div>
+
+        <!-- رسالة خطأ -->
+        <div id="auth-error" class="auth-error"></div>
+
+        <!-- ===== تسجيل الدخول ===== -->
+        <div id="panel-login" class="tab-panel active">
+            <button id="google-login-btn" class="google-btn" type="button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                الدخول بـ Google
+            </button>
+
+            <div class="divider"><span>أو</span></div>
+
+            <label>الإيميل</label>
+            <input type="email" id="login-email" placeholder="example@email.com">
+
+            <label>الباسورد</label>
+            <input type="password" id="login-password" placeholder="••••••••">
+
+            <button id="login-btn" class="auth-btn" type="button">تسجيل الدخول</button>
+        </div>
+
+        <!-- ===== إنشاء حساب جديد ===== -->
+        <div id="panel-register" class="tab-panel">
+            <button id="google-register-btn" class="google-btn" type="button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                التسجيل بـ Google
+            </button>
+
+            <div class="divider"><span>أو</span></div>
+
+            <label>الاسم</label>
+            <input type="text" id="register-name" placeholder="اسمك بالكامل">
+
+            <label>الإيميل</label>
+            <input type="email" id="register-email" placeholder="example@email.com">
+
+            <label>الباسورد</label>
+            <input type="password" id="register-password" placeholder="6 أحرف على الأقل">
+
+            <button id="register-btn" class="auth-btn" type="button">إنشاء حساب</button>
+        </div>
+
+    </div>
+</main>
+
+<footer id="footer" class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="logo-group">
+                <img src="assets/svg/insta food (3).png" alt="Insta Food Logo">
+                <h2 class="footer-logo-text">INSTA FOOD</h2>
+            </div>
+            <p class="footer-tagline">طعام لذيذ طازج يصل إلى باب منزلك.</p>
+        </div>
+        <div class="footer-social">
+            <p class="follow-us">تابعنا</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/instafood.eg" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (3).png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/instafood697" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (4).png" alt="Instagram">
+                </a>
+            </div>
+            <p class="call-us">Call us: 01092009691</p>
+        </div>
+    </div>
+</footer>
+
+<script src="cart.js"></script>
+<script type="module" src="login.js"></script>
 </body>
 </html>

@@ -1,0 +1,156 @@
+/* ============================================
+   Insta Food - Login Page Styles
+   ============================================ */
+
+.login-page {
+    background-color: rgb(248, 248, 248);
+    min-height: 60vh;
+    padding: 3rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.login-card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* ===== التابويبات ===== */
+.login-tabs {
+    display: flex;
+    border-bottom: 2px solid rgb(230, 230, 230);
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(150, 150, 150);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    color: rgb(220, 30, 30);
+    border-bottom-color: rgb(220, 30, 30);
+}
+
+/* ===== الباقيلات (Panels) ===== */
+.tab-panel {
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.tab-panel.active {
+    display: flex;
+}
+
+/* ===== الإدخالات ===== */
+.login-card label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: -0.4rem;
+}
+
+.login-card input {
+    padding: 0.8rem 1rem;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    direction: ltr;
+    text-align: right;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: rgb(220, 30, 30);
+}
+
+/* ===== أزرار ===== */
+.auth-btn {
+    width: 100%;
+    background-color: rgb(220, 30, 30);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.auth-btn:hover {
+    background-color: rgb(190, 20, 20);
+}
+
+.google-btn {
+    width: 100%;
+    background-color: white;
+    color: rgb(50, 50, 50);
+    font-weight: bold;
+    border: 1px solid rgb(210, 210, 210);
+    padding: 0.8rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: background-color 0.2s;
+}
+
+.google-btn:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== الفاصل ===== */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: rgb(180, 180, 180);
+    font-size: 0.85rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: rgb(220, 220, 220);
+}
+
+/* ===== رسالة الخطأ ===== */
+.auth-error {
+    background-color: rgba(220, 30, 30, 0.08);
+    color: rgb(200, 20, 20);
+    border: 1px solid rgba(220, 30, 30, 0.2);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: none;
+    text-align: center;
+}
