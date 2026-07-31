@@ -89,14 +89,36 @@
 
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
-        const url = `https://wa.me/${RESTAURANT_PHONE}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+       const INSTANCE_ID = "instance186689";
+       const TOKEN = "pn7ycxyreph7phs2";
+
+     fetch(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
+     method: "POST",
+     headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+     },
+     body: new URLSearchParams({
+        token: TOKEN,
+        to: RESTAURANT_PHONE,
+        body: message
+     })
+     })
+       .then(async (response) => {
+        const data = await response.json();
+
+       if (!response.ok || data.sent === false) {
+        throw new Error(data.error || "فشل إرسال الرسالة");
+        }
 
         window.CartAPI.clearCart();
-        window.location.href = 'order-confirmation.html';
-    }
+        window.location.href = "order-confirmation.html";
+        })
+         .catch((err) => {
+         console.error(err);
+         alert("حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
+        });
 
-    document.addEventListener('DOMContentLoaded', function () {
+         document.addEventListener('DOMContentLoaded', function () {
         renderCheckoutSummary();
         document.getElementById('checkout-form').addEventListener('submit', handleSubmit);
     });
