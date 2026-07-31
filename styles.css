@@ -363,3 +363,183 @@ header {
     height: 22px;
     object-fit: contain;
 }
+/* ========================= */
+/* Responsive Design */
+/* ========================= */
+
+/* Tablets */
+@media (max-width: 992px) {
+
+    header {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-group {
+        gap: 20px;
+    }
+
+    .top-bar {
+        padding: 10px 15px;
+        text-align: center;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .hero {
+        height: 45vh;
+    }
+
+    .hero-content {
+        left: 20px;
+        bottom: 20px;
+    }
+
+    .order-btn {
+        padding: 12px 25px;
+        font-size: 15px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-social {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+}
+
+/* Phones */
+@media (max-width:768px){
+
+    header{
+        flex-direction:column;
+        align-items:center;
+        padding:15px;
+    }
+
+    .logo-group{
+        justify-content:center;
+    }
+
+    .nav-group{
+        flex-direction:column;
+        gap:15px;
+        width:100%;
+    }
+
+    header ul{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    .header-actions{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .btn-login,
+    .btn-cart{
+        flex:1;
+        justify-content:center;
+        min-width:140px;
+    }
+
+    .hero{
+        height:38vh;
+        min-height:250px;
+    }
+
+    .hero-video{
+        object-fit:cover;
+    }
+
+    .hero-content{
+        left:15px;
+        bottom:15px;
+    }
+
+    .order-btn{
+        padding:12px 22px;
+        font-size:14px;
+    }
+
+    .category-title{
+        font-size:26px;
+        text-align:center;
+    }
+
+    .category-pills{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        padding-bottom:10px;
+    }
+
+    .category-pills::-webkit-scrollbar{
+        display:none;
+    }
+
+    .category-pills span{
+        white-space:nowrap;
+    }
+
+    .product-row{
+        gap:15px;
+        padding-bottom:15px;
+    }
+
+    .product-card{
+        flex:0 0 220px;
+    }
+
+    .product-card img{
+        height:170px;
+    }
+
+    .site-footer{
+        padding:40px 20px;
+    }
+
+}
+
+/* Small Phones */
+@media (max-width:480px){
+
+    h1{
+        font-size:24px;
+    }
+
+    .category-title{
+        font-size:22px;
+    }
+
+    .product-card{
+        flex:0 0 180px;
+    }
+
+    .product-card img{
+        height:140px;
+    }
+
+    .btn-login,
+    .btn-cart{
+        font-size:13px;
+        padding:10px;
+    }
+
+    .order-btn{
+        width:100%;
+        text-align:center;
+    }
+
+}
