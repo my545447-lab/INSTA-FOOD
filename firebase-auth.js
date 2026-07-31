@@ -1,13 +1,10 @@
-// ============================================
-// Insta Food - Firebase Authentication
-// ============================================
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
     getAuth,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
     GoogleAuthProvider,
     signOut,
     onAuthStateChanged,
@@ -21,16 +18,7 @@ import {
     getDocs,
     orderBy,
     serverTimestamp,
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider,
-    signOut,
-    onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBnmncW1VG-_O1APFudasVjc-Gt0c8Ddw0",
@@ -45,14 +33,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
 
-// ---------- تحديث الهيدر بناءً على حالة تسجيل الدخول ----------
 onAuthStateChanged(auth, (user) => {
     const loginBtn = document.querySelector('.btn-login');
     if (!loginBtn) return;
-
     if (user) {
         const name = user.displayName ? user.displayName.split(' ')[0] : 'حسابي';
         loginBtn.innerHTML = `👤 ${name}`;
@@ -63,4 +47,10 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-export { auth, db, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, onAuthStateChanged, collection, addDoc, query, where, getDocs, orderBy, serverTimestamp };
+export {
+    auth, db, googleProvider,
+    signInWithEmailAndPassword, createUserWithEmailAndPassword,
+    signInWithRedirect, getRedirectResult,
+    signOut, onAuthStateChanged,
+    collection, addDoc, query, where, getDocs, orderBy, serverTimestamp,
+};
