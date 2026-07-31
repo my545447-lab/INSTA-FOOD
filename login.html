@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="login-styles.css" />
     <title>تسجيل الدخول - INSTA FOOD</title>
 </head>
 <body>
+
 <div class="top-bar">
     <span class="top-bar-lang">EN | AR</span>
     <span class="top-bar-location">📍 الموقع : منية النصر اول شارع المحكمه</span>
 </div>
+
 <header>
     <div class="nav-group">
         <div class="logo-group">
@@ -33,11 +36,63 @@
         </a>
     </div>
 </header>
+
 <hr />
-<main style="padding:4rem 5%;text-align:center;">
-    <h2>تسجيل الدخول</h2>
-    <p style="color:rgb(120,120,120);margin-top:1rem;">قريباً...</p>
+
+<main class="login-page">
+    <div class="login-card">
+
+        <!-- تبويبات تسجيل الدخول / إنشاء حساب -->
+        <div class="login-tabs">
+            <button class="tab-btn active" id="tab-login">تسجيل الدخول</button>
+            <button class="tab-btn" id="tab-register">حساب جديد</button>
+        </div>
+
+        <!-- رسالة خطأ -->
+        <div id="auth-error" class="auth-error"></div>
+
+        <!-- ===== تسجيل الدخول ===== -->
+        <div id="panel-login" class="tab-panel active">
+            <button id="google-login-btn" class="google-btn" type="button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                الدخول بـ Google
+            </button>
+
+            <div class="divider"><span>أو</span></div>
+
+            <label>الإيميل</label>
+            <input type="email" id="login-email" placeholder="example@email.com">
+
+            <label>الباسورد</label>
+            <input type="password" id="login-password" placeholder="••••••••">
+
+            <button id="login-btn" class="auth-btn" type="button">تسجيل الدخول</button>
+        </div>
+
+        <!-- ===== إنشاء حساب جديد ===== -->
+        <div id="panel-register" class="tab-panel">
+            <button id="google-register-btn" class="google-btn" type="button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                التسجيل بـ Google
+            </button>
+
+            <div class="divider"><span>أو</span></div>
+
+            <label>الاسم</label>
+            <input type="text" id="register-name" placeholder="اسمك بالكامل">
+
+            <label>الإيميل</label>
+            <input type="email" id="register-email" placeholder="example@email.com">
+
+            <label>الباسورد</label>
+            <input type="password" id="register-password" placeholder="6 أحرف على الأقل">
+
+            <button id="register-btn" class="auth-btn" type="button">إنشاء حساب</button>
+        </div>
+
+    </div>
 </main>
+
 <footer id="footer" class="site-footer">
     <div class="footer-container">
         <div class="footer-brand">
@@ -61,6 +116,8 @@
         </div>
     </div>
 </footer>
+
 <script src="cart.js"></script>
+<script type="module" src="login.js"></script>
 </body>
 </html>
