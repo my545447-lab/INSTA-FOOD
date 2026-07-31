@@ -1,11 +1,30 @@
-import { auth, db, onAuthStateChanged } from './firebase-auth.js';
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// ============================================
+// Insta Food - Checkout
+// بيقرا العربة، يبني رسالة الطلب، ويبعتها تلقائيًا
+// على واتساب عن طريق UltraMsg API
+// وبعدين يوديك لصفحة "تفاصيل الطلب" (order-confirmation.html)
+// ويحفظ الطلب في Firestore لو المستخدم مسجل دخول
+// ============================================
+
+import {
+    auth,
+    db,
+    collection,
+    addDoc,
+    serverTimestamp,
+} from './firebase-auth.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 (function () {
-    const RESTAURANT_PHONE = '201555054885';
+    // ===== بيانات UltraMsg =====
+    const ULTRAMSG_INSTANCE = 'instance186689';
+    const ULTRAMSG_TOKEN = 'l2rm6z3ajakah4hb';
+    const RESTAURANT_PHONE = '201555054885'; // رقم المطعم بالكود الدولي بدون +
+
     const ORDER_STORAGE_KEY = 'insta-food-last-order';
     let currentUser = null;
 
+    // ===== معرفة حالة تسجيل الدخول =====
     onAuthStateChanged(auth, (user) => {
         currentUser = user;
     });
@@ -30,7 +49,9 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
-        container.innerHTML = cart.map((item) => `
+        container.innerHTML = cart
+            .map(
+                (item) => `
             <div class="checkout-item-row">
                 <span class="checkout-item-name">
                     ${escapeHtml(item.name)}${item.size ? ` (${escapeHtml(item.size)})` : ''}
@@ -38,7 +59,9 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
                 </span>
                 <span class="checkout-item-price">EGP ${item.price * item.quantity}</span>
             </div>
-        `).join('');
+        `
+            )
+            .join('');
 
         totalEl.textContent = 'EGP ' + total.toFixed(0);
     }
@@ -46,6 +69,7 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
     function buildOrderObject(formData) {
         const cart = window.CartAPI.getCart();
         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
         return {
             orderId: 'ORD-' + Date.now().toString().slice(-6),
             orderTime: new Date().toISOString(),
@@ -57,41 +81,71 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
             customerAddress: formData.get('customer-address'),
             customerNotes: formData.get('customer-notes') || '',
             paymentMethod: 'كاش عند الاستلام',
-            userId: currentUser ? currentUser.uid : null,
-            userEmail: currentUser ? currentUser.email : null,
         };
     }
 
     function buildWhatsAppMessage(order) {
         let message = `🍔 *طلب جديد - INSTA FOOD*\n`;
         message += `🔖 *رقم الطلب:* ${order.orderId}\n\n`;
+
         message += `*الأصناف:*\n`;
         order.items.forEach((item) => {
             const sizeLabel = item.size ? ` (${item.size})` : '';
             message += `• ${item.name}${sizeLabel} × ${item.quantity} = EGP ${item.price * item.quantity}\n`;
         });
+
         message += `\n*الاجمالي: EGP ${order.total.toFixed(0)}*\n`;
         message += `\n---------------------------\n`;
         message += `👤 *الاسم:* ${order.customerName}\n`;
         message += `📞 *التليفون:* ${order.customerPhone}\n`;
         message += `📍 *المنطقة:* ${order.customerArea}\n`;
         message += `🏠 *العنوان:* ${order.customerAddress}\n`;
+
         if (order.customerNotes && order.customerNotes.trim()) {
             message += `📝 *ملاحظات:* ${order.customerNotes}\n`;
         }
+
         message += `💳 *طريقة الدفع:* ${order.paymentMethod}\n`;
+
         return message;
     }
 
+    // ---------- إرسال تلقائي عن طريق UltraMsg ----------
+    function sendWhatsAppAutomatically(message) {
+        const url = `https://api.ultramsg.com/${ULTRAMSG_INSTANCE}/messages/chat`;
+
+        const body = new URLSearchParams({
+            token: ULTRAMSG_TOKEN,
+            to: '+' + RESTAURANT_PHONE,
+            body: message,
+            priority: '10',
+        });
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: body.toString(),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log('UltraMsg response:', data))
+            .catch((err) => console.warn('فشل إرسال رسالة UltraMsg:', err));
+    }
+
+    // ---------- حفظ الطلب في Firestore ----------
     async function saveOrderToFirestore(order) {
+        if (!currentUser) return; // مش مسجل دخول = مفيش حفظ
+
         try {
-            if (!currentUser) return;
-            await addDoc(collection(db, 'orders'), {
+            const orderData = {
                 ...order,
-                createdAt: new Date(),
-            });
+                userId: currentUser.uid,
+                userEmail: currentUser.email || '',
+                createdAt: serverTimestamp(),
+            };
+            await addDoc(collection(db, 'orders'), orderData);
+            console.log('✅ الطلب تحفظ في Firestore');
         } catch (err) {
-            console.warn('فشل حفظ الطلب في Firestore:', err);
+            console.warn('❌ فشل حفظ الطلب في Firestore:', err);
         }
     }
 
@@ -106,23 +160,23 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
         const form = document.getElementById('checkout-form');
         const formData = new FormData(form);
+
         const order = buildOrderObject(formData);
         const message = buildWhatsAppMessage(order);
 
-        // حفظ الطلب في Firestore لو المستخدم مسجل دخول
+        // إرسال تلقائي لصاحب المطعم
+        sendWhatsAppAutomatically(message);
+
+        // حفظ في Firestore لو مسجل دخول
         await saveOrderToFirestore(order);
 
-        // حفظ الطلب في sessionStorage عشان صفحة التأكيد
+        // نحفظ تفاصيل الطلب عشان صفحة التأكيد تعرضها للعميل
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
-        // فتح واتساب
-        const url = `https://wa.me/${RESTAURANT_PHONE}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-
-        // تصفير العربة
+        // نفضي العربة عشان الطلب التالي يبدأ من جديد
         window.CartAPI.clearCart();
 
-        // الانتقال لصفحة التأكيد
+        // نوصل العميل لصفحة تفاصيل الطلب
         window.location.href = 'order-confirmation.html';
     }
 
