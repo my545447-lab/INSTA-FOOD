@@ -271,3 +271,71 @@
     background-color: rgb(220, 30, 30);
     color: white;
 }
+/* ========================================= */
+/* Cart Mobile */
+/* ========================================= */
+
+@media (max-width:768px){
+
+    .cart-page{
+        padding:20px 12px 40px;
+    }
+
+    #cart-title{
+        font-size:1.5rem;
+        text-align:center;
+    }
+
+    .cart-item{
+        display:grid;
+        grid-template-columns:80px 1fr;
+        gap:12px;
+        padding:14px;
+        align-items:start;
+    }
+
+    .cart-item img{
+        width:80px;
+        height:80px;
+    }
+
+    .cart-item-info{
+        width:100%;
+    }
+
+    .cart-item-info h3{
+        font-size:16px;
+        margin-bottom:5px;
+    }
+
+    .cart-item-info p{
+        font-size:13px;
+    }
+
+    .cart-qty{
+        margin-top:10px;
+        justify-content:flex-start;
+    }
+
+    .cart-item-price{
+        width:auto;
+        margin-top:10px;
+        font-size:16px;
+        text-align:right;
+    }
+
+    .remove-btn{
+        justify-self:end;
+        margin-top:5px;
+    }
+
+    .order-summary{
+        margin-top:20px;
+    }
+
+    .checkout-btn{
+        font-size:16px;
+        padding:14px;
+    }
+
+}
