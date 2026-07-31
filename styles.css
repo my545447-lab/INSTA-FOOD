@@ -460,19 +460,6 @@ header {
 
     /* HERO */
 
-    .hero{
-        height:190px;
-        min-height:190px;
-        max-height:190px;
-    }
-
-    .hero-video{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        object-position:center;
-    }
-
     .hero-content{
         left:15px;
         bottom:15px;
