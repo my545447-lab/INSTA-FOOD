@@ -1,9 +1,19 @@
 // ============================================
 // Insta Food - Checkout
 // بيقرا العربة، يبني رسالة الطلب، ويبعتها تلقائيًا
-// على واتساب عن طريق CallMeBot API (من غير ما حد يدوس إرسال)
+// على واتساب عن طريق UltraMsg API
 // وبعدين يوديك لصفحة "تفاصيل الطلب" (order-confirmation.html)
+// ويحفظ الطلب في Firestore لو المستخدم مسجل دخول
 // ============================================
+
+import {
+    auth,
+    db,
+    collection,
+    addDoc,
+    serverTimestamp,
+} from './firebase-auth.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 (function () {
     // ===== بيانات UltraMsg =====
@@ -12,6 +22,12 @@
     const RESTAURANT_PHONE = '201555054885'; // رقم المطعم بالكود الدولي بدون +
 
     const ORDER_STORAGE_KEY = 'insta-food-last-order';
+    let currentUser = null;
+
+    // ===== معرفة حالة تسجيل الدخول =====
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+    });
 
     function escapeHtml(str) {
         const div = document.createElement('div');
@@ -115,7 +131,25 @@
             .catch((err) => console.warn('فشل إرسال رسالة UltraMsg:', err));
     }
 
-    function handleSubmit(e) {
+    // ---------- حفظ الطلب في Firestore ----------
+    async function saveOrderToFirestore(order) {
+        if (!currentUser) return; // مش مسجل دخول = مفيش حفظ
+
+        try {
+            const orderData = {
+                ...order,
+                userId: currentUser.uid,
+                userEmail: currentUser.email || '',
+                createdAt: serverTimestamp(),
+            };
+            await addDoc(collection(db, 'orders'), orderData);
+            console.log('✅ الطلب تحفظ في Firestore');
+        } catch (err) {
+            console.warn('❌ فشل حفظ الطلب في Firestore:', err);
+        }
+    }
+
+    async function handleSubmit(e) {
         e.preventDefault();
 
         const cart = window.CartAPI.getCart();
@@ -133,13 +167,16 @@
         // إرسال تلقائي لصاحب المطعم
         sendWhatsAppAutomatically(message);
 
+        // حفظ في Firestore لو مسجل دخول
+        await saveOrderToFirestore(order);
+
         // نحفظ تفاصيل الطلب عشان صفحة التأكيد تعرضها للعميل
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
         // نفضي العربة عشان الطلب التالي يبدأ من جديد
         window.CartAPI.clearCart();
 
-        // نوصل العميل لصفحة تفاصيل الطلب (مش واتساب)
+        // نوصل العميل لصفحة تفاصيل الطلب
         window.location.href = 'order-confirmation.html';
     }
 
