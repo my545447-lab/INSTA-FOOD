@@ -364,103 +364,93 @@ header {
     object-fit: contain;
 }
 /* ========================= */
-/* Responsive Design */
+/* Mobile Responsive */
 /* ========================= */
 
-/* Tablets */
-@media (max-width: 992px) {
+@media screen and (max-width:768px){
 
-    header {
-        padding: 15px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .nav-group {
-        gap: 20px;
-    }
-
-    .top-bar {
-        padding: 10px 15px;
-        text-align: center;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .hero {
-        height: 45vh;
-    }
-
-    .hero-content {
-        left: 20px;
-        bottom: 20px;
-    }
-
-    .order-btn {
-        padding: 12px 25px;
-        font-size: 15px;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-social {
-        text-align: center;
-    }
-
-    .social-icons {
-        justify-content: center;
-    }
-
-}
-
-/* Phones */
-@media (max-width:768px){
+    /* Header */
 
     header{
+        display:flex;
         flex-direction:column;
         align-items:center;
-        padding:15px;
+        justify-content:center;
+        padding:10px 15px;
+        gap:12px;
     }
 
     .logo-group{
-        justify-content:center;
+        display:flex;
+        align-items:center;
+        gap:8px;
+    }
+
+    .logo-group img{
+        width:40px;
+    }
+
+    .logo-group h1{
+        font-size:22px;
     }
 
     .nav-group{
-        flex-direction:column;
-        gap:15px;
         width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
     }
 
     header ul{
+        display:flex;
         flex-wrap:wrap;
         justify-content:center;
         gap:12px;
     }
 
+    header ul li a{
+        font-size:15px;
+    }
+
     .header-actions{
         width:100%;
+        display:flex;
         justify-content:center;
-        flex-wrap:wrap;
+        gap:10px;
     }
 
     .btn-login,
     .btn-cart{
         flex:1;
+        max-width:170px;
         justify-content:center;
-        min-width:140px;
+        padding:10px;
+        font-size:14px;
     }
 
+    /* Top Bar */
+
+    .top-bar{
+        flex-direction:column;
+        gap:5px;
+        text-align:center;
+        padding:10px;
+        font-size:13px;
+    }
+
+    /* Hero */
+
     .hero{
-        height:38vh;
-        min-height:250px;
+        height:220px;
+        min-height:auto;
     }
 
     .hero-video{
+        width:100%;
+        height:100%;
         object-fit:cover;
+        object-position:center;
     }
 
     .hero-content{
@@ -469,20 +459,23 @@ header {
     }
 
     .order-btn{
-        padding:12px 22px;
+        padding:10px 20px;
         font-size:14px;
     }
 
+    /* Categories */
+
     .category-title{
-        font-size:26px;
+        font-size:24px;
         text-align:center;
     }
 
     .category-pills{
-        justify-content:flex-start;
         overflow-x:auto;
         flex-wrap:nowrap;
-        padding-bottom:10px;
+        justify-content:flex-start;
+        padding:15px;
+        gap:10px;
     }
 
     .category-pills::-webkit-scrollbar{
@@ -493,53 +486,86 @@ header {
         white-space:nowrap;
     }
 
+    /* Products */
+
+    .menu-category{
+        padding:25px 15px;
+    }
+
     .product-row{
         gap:15px;
-        padding-bottom:15px;
+        overflow-x:auto;
+    }
+
+    .product-row::-webkit-scrollbar{
+        display:none;
     }
 
     .product-card{
-        flex:0 0 220px;
+        flex:0 0 200px;
     }
 
     .product-card img{
-        height:170px;
+        height:150px;
     }
 
-    .site-footer{
-        padding:40px 20px;
+    .product-card h3{
+        font-size:17px;
+    }
+
+    .product-desc{
+        font-size:13px;
+    }
+
+    .selected-price{
+        font-size:15px;
+    }
+
+    .add-btn{
+        width:calc(100% - 32px);
+    }
+
+    /* Footer */
+
+    .footer-container{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .footer-brand{
+        max-width:100%;
+    }
+
+    .footer-social{
+        text-align:center;
+    }
+
+    .social-icons{
+        justify-content:center;
     }
 
 }
 
 /* Small Phones */
-@media (max-width:480px){
 
-    h1{
-        font-size:24px;
-    }
+@media screen and (max-width:480px){
 
-    .category-title{
-        font-size:22px;
+    .hero{
+        height:180px;
     }
 
     .product-card{
-        flex:0 0 180px;
+        flex:0 0 170px;
     }
 
     .product-card img{
-        height:140px;
+        height:130px;
     }
 
     .btn-login,
     .btn-cart{
         font-size:13px;
-        padding:10px;
-    }
-
-    .order-btn{
-        width:100%;
-        text-align:center;
     }
 
 }
