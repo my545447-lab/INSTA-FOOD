@@ -117,8 +117,9 @@
          console.error(err);
          alert("حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
         });
+    }
 
-         document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         renderCheckoutSummary();
         document.getElementById('checkout-form').addEventListener('submit', handleSubmit);
     });
