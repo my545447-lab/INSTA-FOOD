@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart-styles.css" />
+    <link rel="stylesheet" href="profile-styles.css" />
+    <title>حسابي - INSTA FOOD</title>
+</head>
+<body>
+
+<div class="top-bar">
+    <span class="top-bar-lang">EN | AR</span>
+    <span class="top-bar-location">📍 الموقع : منية النصر اول شارع المحكمه</span>
+</div>
+
+<header>
+    <div class="nav-group">
+        <div class="logo-group">
+            <img src="assets/svg/insta food (3).png" alt="Insta Food logo">
+            <h1>INSTA FOOD</h1>
+        </div>
+        <nav>
+            <ul>
+                <a href="index.html">الصفحة الرئيسية</a>
+                <li><a href="index.html#menu">مينيو</a></li>
+                <li><a href="index.html#footer">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-actions">
+        <a href="profile.html" class="btn-login">👤 حسابي</a>
+        <a href="cart.html" class="btn-cart cart-icon-wrapper">
+            🛒 العربه
+            <span class="cart-badge">0</span>
+        </a>
+    </div>
+</header>
+
+<hr />
+
+<main class="profile-page">
+    <div class="profile-inner">
+
+        <!-- بيانات المستخدم -->
+        <div class="profile-card">
+            <div class="profile-avatar" id="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h2 id="profile-name">...</h2>
+                <p id="profile-email">...</p>
+            </div>
+            <button id="logout-btn" class="logout-btn">تسجيل الخروج</button>
+        </div>
+
+        <!-- تاريخ الطلبات -->
+        <div class="orders-section">
+            <h2>طلباتي السابقة</h2>
+            <div id="orders-list">
+                <div class="orders-loading">جاري التحميل...</div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer id="footer" class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="logo-group">
+                <img src="assets/svg/insta food (3).png" alt="Insta Food Logo">
+                <h2 class="footer-logo-text">INSTA FOOD</h2>
+            </div>
+            <p class="footer-tagline">طعام لذيذ طازج يصل إلى باب منزلك.</p>
+        </div>
+        <div class="footer-social">
+            <p class="follow-us">تابعنا</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/instafood.eg" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (3).png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/instafood697" class="social-icon" target="_blank">
+                    <img src="assets/svg/social/images-removebg-preview (4).png" alt="Instagram">
+                </a>
+            </div>
+            <p class="call-us">Call us: 01092009691</p>
+        </div>
+    </div>
+</footer>
+
+<script src="cart.js"></script>
+<script type="module" src="profile.js"></script>
+</body>
+</html>
