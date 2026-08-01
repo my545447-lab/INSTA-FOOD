@@ -449,8 +449,9 @@ header {
 
     header ul{
         display:flex;
+        flex-direction:row;
         justify-content:flex-end;
-        flex-wrap:wrap;
+        flex-wrap:nowrap;
         gap:10px;
         margin:0;
         padding-inline-start:0;
@@ -459,16 +460,16 @@ header {
 
     header ul li a,
     header ul > a {
-        font-size:13px;
+        font-size:12px;
     }
 
     /* TOP BAR */
 
     .top-bar{
-        flex-direction:column;
-        gap:4px;
-        padding:8px;
-        text-align:center;
+        flex-direction:row;
+        justify-content:space-between;
+        padding:8px 16px;
+        text-align:right;
     }
 
     /* HERO */
