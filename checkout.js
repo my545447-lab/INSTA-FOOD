@@ -1,4 +1,4 @@
-// دالة مرنة ومفتوحة لضمان قراءة السلة من أي مكان بالمتصفح
+// 1. دالة مرنة ومفتوحة لضمان قراءة السلة من أي مكان بالمتصفح
 function getCartItems() {
     if (window.CartAPI && typeof window.CartAPI.getCart === 'function') {
         return window.CartAPI.getCart();
@@ -9,7 +9,7 @@ function getCartItems() {
            JSON.parse(localStorage.getItem('insta-food-cart')) || [];
 }
 
-// دالة عرض ملخص الطلب بالأسعار والمنتجات في الصفحة
+// 2. دالة عرض ملخص الطلب بالأسعار والمنتجات في الصفحة
 function renderCheckoutSummary() {
     const cart = getCartItems();
     const container = document.getElementById('checkout-items');
@@ -41,7 +41,7 @@ function renderCheckoutSummary() {
     totalEl.textContent = 'EGP ' + total.toFixed(0);
 }
 
-// دالة تجميع البيانات من حقول الـ HTML بدقة
+// 3. دالة تجميع البيانات من حقول الـ HTML بدقة
 function buildOrderObject(formData) {
     const cart = getCartItems();
     const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
@@ -60,7 +60,7 @@ function buildOrderObject(formData) {
     };
 }
 
-// دالة تنسيق الرسالة النصية لتليجرام
+// 4. دالة تنسيق الرسالة النصية لتليجرام
 function buildTelegramMessage(order) {
     let message = `🍔 *طلب جديد - INSTA FOOD*\n`;
     message += `🔖 *رقم الطلب:* ${order.orderId}\n\n`;
@@ -84,25 +84,27 @@ function buildTelegramMessage(order) {
     return message;
 }
 
-// دالة تنفيذ الإرسال عند الضغط على تأكيد الطلب
+// 5. دالة تنفيذ الإرسال عند الضغط على تأكيد الطلب
 function handleSubmit(e) {
     e.preventDefault();
     
-    // 1. تجميع البيانات بشكل مباشر من الحقول نصوص صريحة (Plain Text)
-    const orderData = {
-        name: document.getElementById('customer-name')?.value || "عمر عيسى",
-        phone: document.getElementById('customer-phone')?.value || "01555054885",
-        area: document.getElementById('customer-area')?.value || "دكرنس",
-        address: document.getElementById('customer-address')?.value || "لافا",
-        notes: document.getElementById('customer-notes')?.value || "تجربة"
-    };
+    const cart = getCartItems();
+    if (cart.length === 0) {
+        alert('عربتك فاضية، ارجع للمنيو وضيف حاجة الأول.');
+        return;
+    }
 
-    // 2. بناء رسالة نصية بسيطة جداً بدون أي تعقيد
-    const messageText = `طلب جديد من: ${orderData.name}\nالتليفون: ${orderData.phone}\nالعنوان: ${orderData.area} - ${orderData.address}\nالملاحظات: ${orderData.notes}\nالإجمالي: 340 ج.م`;
+    const form = document.getElementById('checkout-form');
+    const formData = new FormData(form);
+    
+    // ربط ديناميكي كامل لقراءة بيانات العميل الحقيقية مع أصنافه وسعره المنسق لتليجرام
+    const order = buildOrderObject(formData);
+    const messageText = buildTelegramMessage(order);
 
     console.log("الرسالة الجاهزة للإرسال:", messageText);
+    sessionStorage.setItem('insta-food-last-order', JSON.stringify(order));
 
-    // 3. الإرسال للسيرفر (تم تغيير المسار ليكون متوافق مع Vercel)
+    // الإرسال للسيرفر
     fetch("/api/telegram", { 
         method: "POST", 
         headers: { 
@@ -119,13 +121,31 @@ function handleSubmit(e) {
     .then(data => {
         if (data.success) {
             alert('مبروك! الأوردر وصل تليجرام بنجاح.');
+            
+            // تفريغ السلة بعد نجاح العملية
+            if (window.CartAPI && typeof window.CartAPI.clearCart === 'function') {
+                window.CartAPI.clearCart();
+            } else {
+                localStorage.removeItem('cart');
+            }
+            
             window.location.href = 'order-confirmation.html';
         } else {
-            alert('فشل الإرسال: ' + data.error);
+            alert('فشل الإرسال من السيرفر: ' + data.error);
         }
     })
     .catch((err) => {
         console.error("الخطأ اللي المتصفح شافه:", err);
-        alert('المتصفح مش قادر يتصل بالسيرفر (fetch failed). تأكد إن الملف مرفوع في مجلد api');
+        alert('حدث خطأ أثناء إرسال الطلب، تأكد من إعدادات السيرفر.');
     });
 }
+
+// 6. السطر الحاسم لتشغيل الكود وربطه بالصفحة فور تحميلها (الذي كان ناقصاً)
+document.addEventListener('DOMContentLoaded', function () {
+    renderCheckoutSummary();
+    
+    const form = document.getElementById('checkout-form');
+    if (form) {
+        form.addEventListener('submit', handleSubmit);
+    }
+});
