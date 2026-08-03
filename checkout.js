@@ -89,34 +89,33 @@
 
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
-        fetch("/api/send-order", {
+     fetch("/api/telegram", {
     method: "POST",
     headers: {
-        "Content-Type":"application/json"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        to: RESTAURANT_PHONE,
-        body: message
+        message: message
     })
 })
-.then(async(res)=>{
+.then(async (res) => {
 
-    const data=await res.json();
+    const data = await res.json();
 
-    if(!data.success){
+    if (!data.success) {
         throw new Error(data.error);
     }
 
     window.CartAPI.clearCart();
 
-    window.location.href="order-confirmation.html";
+    window.location.href = "order-confirmation.html";
 
 })
-.catch(err=>{
+.catch(err => {
 
     console.error(err);
 
-    alert("حدث خطأ أثناء إرسال الطلب.");
+    alert("حدث خطأ أثناءاستلام الاوردر.");
 
 });
     }
