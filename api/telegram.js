@@ -27,21 +27,20 @@ export default async function handler(req, res) {
 
         const data = await response.json();
 
-        if (!data.ok) {
-            return res.status(500).json({
-         success: false,
-         telegram: data
-          });
-        }
-
-        return res.status(200).json({
-            success: true
+        return res.status(response.ok ? 200 : 500).json({
+            success: response.ok && data.ok,
+            telegram: data,
+            tokenExists: !!token,
+            chatId: chatId
         });
+
     } catch (err) {
+
         return res.status(500).json({
             success: false,
-            error: err.message,
-            stack: err.stack
+            error: err.message
         });
+
     }
+
 }
