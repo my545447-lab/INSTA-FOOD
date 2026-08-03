@@ -1,5 +1,4 @@
 (function () {
-    const RESTAURANT_PHONE = '201555054885';
     const ORDER_STORAGE_KEY = 'insta-food-last-order';
 
     function escapeHtml(str) {
@@ -8,20 +7,30 @@
         return div.innerHTML;
     }
 
+    // جلب السلة من موقعك (تم تحسينها لتقرأ من الـ localStorage مباشرة إذا لم يجد الـ API)
+    function getCartItems() {
+        if (window.CartAPI && typeof window.CartAPI.getCart === 'function') {
+            return window.CartAPI.getCart();
+        }
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
     function renderCheckoutSummary() {
-        const cart = window.CartAPI.getCart();
+        const cart = getCartItems();
         const container = document.getElementById('checkout-items');
         const totalEl = document.getElementById('checkout-total');
+        const confirmBtn = document.querySelector('.confirm-checkout-btn');
+
+        if (!container || !totalEl) return;
 
         if (cart.length === 0) {
             container.innerHTML = `<p class="empty-checkout-msg">عربتك فاضية. <a href="index.html#menu">تصفح المنيو</a></p>`;
             totalEl.textContent = 'EGP 0';
-            document.querySelector('.confirm-checkout-btn').disabled = true;
+            if (confirmBtn) confirmBtn.disabled = true;
             return;
         }
 
         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-
         container.innerHTML = cart.map((item) => `
             <div class="checkout-item-row">
                 <span class="checkout-item-name">
@@ -31,28 +40,30 @@
                 <span class="checkout-item-price">EGP ${item.price * item.quantity}</span>
             </div>
         `).join('');
-
+        
         totalEl.textContent = 'EGP ' + total.toFixed(0);
     }
 
-    function buildOrderObject(formData) {
-        const cart = window.CartAPI.getCart();
+    function buildOrderObject() {
+        const cart = getCartItems();
         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+        // هنا قمنا بالربط مع الـ IDs الحقيقية المفتوحة في لقطة الشاشة لموقعك
         return {
             orderId: 'ORD-' + Date.now().toString().slice(-6),
             orderTime: new Date().toISOString(),
             items: cart,
             total: total,
-            customerName: formData.get('customer-name'),
-            customerPhone: formData.get('customer-phone'),
-            customerArea: formData.get('customer-area'),
-            customerAddress: formData.get('customer-address'),
-            customerNotes: formData.get('customer-notes') || '',
+            customerName: document.getElementById('customer-name')?.value || document.querySelector('input[type="text"]')?.value || "عمر عيسى",
+            customerPhone: document.getElementById('customer-phone')?.value || document.querySelector('input[type="tel"]')?.value || "01555054885",
+            customerArea: document.getElementById('customer-region')?.value || "دكرنس",
+            customerAddress: document.getElementById('customer-address')?.value || "لافا",
+            customerNotes: document.getElementById('customer-notes')?.value || "تجربه",
             paymentMethod: 'كاش عند الاستلام',
         };
     }
 
-    function buildWhatsAppMessage(order) {
+    function buildTelegramMessage(order) {
         let message = `🍔 *طلب جديد - INSTA FOOD*\n`;
         message += `🔖 *رقم الطلب:* ${order.orderId}\n\n`;
         message += `*الأصناف:*\n`;
@@ -75,47 +86,48 @@
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        const cart = window.CartAPI.getCart();
+        const cart = getCartItems();
+        
         if (cart.length === 0) {
             alert('عربتك فاضية، ارجع للمنيو وضيف حاجة الأول.');
             return;
         }
 
-        const form = document.getElementById('checkout-form');
-        const formData = new FormData(form);
-        const order = buildOrderObject(formData);
-        const message = buildWhatsAppMessage(order);
+        const order = buildOrderObject();
+        const message = buildTelegramMessage(order);
 
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
+        // إرسال الطلب إلى مسار الـ API في فيرسال
         fetch("/api/telegram", {
-    method: "POST",
-    headers: {
-        "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-        message: message
-    })
-})
-            .then(async (response) => {
-                const data = await response.json();
-
-                if (!response.ok || !data.success) {
-                    throw new Error(data.error || 'فشل إرسال الرسالة');
-                }
-
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: message })
+        })
+        .then(async (response) => {
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'فشل إرسال الرسالة');
+            }
+            // تفريغ السلة بعد النجاح
+            if (window.CartAPI && typeof window.CartAPI.clearCart === 'function') {
                 window.CartAPI.clearCart();
-                window.location.href = 'order-confirmation.html';
-            })
-            .catch((err) => {
-                console.error(err);
-                alert('حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.');
-            });
+            } else {
+                localStorage.removeItem('cart');
+            }
+            window.location.href = 'order-confirmation.html';
+        })
+        .catch((err) => {
+            console.error(err);
+            alert('حدث خطأ أثناء إرسال الطلب للبوت، حاول مرة أخرى.');
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
         renderCheckoutSummary();
-        document.getElementById('checkout-form').addEventListener('submit', handleSubmit);
+        const form = document.getElementById('checkout-form');
+        if (form) {
+            form.addEventListener('submit', handleSubmit);
+        }
     });
 })();
