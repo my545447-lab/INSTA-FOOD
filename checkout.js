@@ -76,11 +76,11 @@ function handleSubmit(e) {
     // ==========================================
     // ⚠️ ضع بيانات البوت الخاصة بك هنا مباشرة ⚠️
     // ==========================================
-    const botToken = "7449557457:AAFlw9fO8hSg6Vsh0E8C4w_kF-mS-8g_I2U"; // استبدل هذا بالتوكن الحقيقي الخاص بك من BotFather
-    const chatId = "5116514547";     // استبدل هذا بـ الـ Chat ID الحقيقي الخاص بك
+    const botToken = "8700661165:AAGWEmhEhH1fvjRSICUQ_hWbHNyD6PZ7RNg"; // استبدل هذا بالتوكن الحقيقي الخاص بك من BotFather
+    const chatId = "7607332806";     // استبدل هذا بـ الـ Chat ID الحقيقي الخاص بك
     // ==========================================
 
-    const telegramUrl = `https://telegram.org{botToken}/sendMessage`;
+    const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
     // الإرسال المباشر الفوري من المتصفح إلى سيرفر تليجرام
     fetch(telegramUrl, { 
@@ -103,6 +103,7 @@ function handleSubmit(e) {
             } else {
                 localStorage.removeItem('cart');
                 localStorage.removeItem('cartItems');
+                localStorage.removeItem('insta-food-cart');
             }
             
             // التوجه لصفحة النجاح
