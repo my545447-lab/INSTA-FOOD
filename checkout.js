@@ -89,73 +89,29 @@
 
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
-     export default {
-    async fetch(request) {
-        // السماح فقط بطلبات POST
-        if (request.method !== 'POST') {
-            return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-                status: 405,
-                headers: { 'Content-Type': 'application/json' }
+        fetch("/api/telegram", {
+    method: "POST",
+    headers: {
+        "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
+        message: message
+    })
+})
+            .then(async (response) => {
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || 'فشل إرسال الرسالة');
+                }
+
+                window.CartAPI.clearCart();
+                window.location.href = 'order-confirmation.html';
+            })
+            .catch((err) => {
+                console.error(err);
+                alert('حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.');
             });
-        }
-
-        try {
-            // جلب البيانات المرسلة من موقعك
-            const orderData = await request.json();
-            
-            // قراءة المتغيرات السرية من سيرفر فيرسال
-            const botToken = process.env.TELEGRAM_BOT_TOKEN;
-            const chatId = process.env.TELEGRAM_CHAT_ID;
-
-            // تنسيق الرسالة لتصلك منظمة ومريحة للعين
-            const message = `
-📦 *طلب جديد من الموقع!*
-
-👤 *العميل:* ${orderData.name || "غير مسجل"}
-📞 *الهاتف:* ${orderData.phone || "غير مسجل"}
-📍 *العنوان:* ${orderData.address || "غير مسجل"}
-💰 *الإجمالي:* ${orderData.total || "0"} ج.م
-
-🛒 *المنتجات:*
-${orderData.items || "لا توجد منتجات"}
-            `.trim();
-
-            const telegramUrl = `https://telegram.org{8700661165:AAGWEmhEhH1fvjRSICUQ_hWbHNyD6PZ7RNg}/sendMessage`;
-
-            // إرسال البيانات إلى تليجرام
-            const telegramResponse = await fetch(telegramUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            });
-
-            const result = await telegramResponse.json();
-
-            if (result.ok) {
-                return new Response(JSON.stringify({ success: true }), {
-                    status: 200,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-            } else {
-                return new Response(JSON.stringify({ success: false, error: result.description }), {
-                    status: 400,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-            }
-
-        } catch (error) {
-            return new Response(JSON.stringify({ success: false, error: error.message }), {
-                status: 500,
-                headers: { 'Content-Type': 'application/json' }
-            });
-        }
-    }
-};
-
     }
 
     document.addEventListener('DOMContentLoaded', function () {
