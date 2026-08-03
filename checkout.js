@@ -1,68 +1,30 @@
 (function () {
-    const ORDER_STORAGE_KEY = 'insta-food-last-order';
+    // 1. ضع هنا الأكواد والوظائف التي كتبتها بنفسك ونجحت في قراءة السلة وعرضها في الصفحة
+    // (مثل: renderCheckoutSummary أو getCart وكل الأجزاء التي تصلح القيمة صفر)
+    
+    // ... اترک أكواد السلة الحالية كما هي دون تغيير ...
 
-    function escapeHtml(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
-
-    // جلب السلة من موقعك (تم تحسينها لتقرأ من الـ localStorage مباشرة إذا لم يجد الـ API)
-    function getCartItems() {
-        if (window.CartAPI && typeof window.CartAPI.getCart === 'function') {
-            return window.CartAPI.getCart();
-        }
-        return JSON.parse(localStorage.getItem('cart')) || [];
-    }
-
-    function renderCheckoutSummary() {
-        const cart = getCartItems();
-        const container = document.getElementById('checkout-items');
-        const totalEl = document.getElementById('checkout-total');
-        const confirmBtn = document.querySelector('.confirm-checkout-btn');
-
-        if (!container || !totalEl) return;
-
-        if (cart.length === 0) {
-            container.innerHTML = `<p class="empty-checkout-msg">عربتك فاضية. <a href="index.html#menu">تصفح المنيو</a></p>`;
-            totalEl.textContent = 'EGP 0';
-            if (confirmBtn) confirmBtn.disabled = true;
-            return;
-        }
-
+    // 2. هذه هي الدالة المسؤولة عن تجميع البيانات بعد أن أصبحت تظهر كاملة عندك
+    function buildOrderObject(formData) {
+        // تأكد أن الدالة الحالية لديك تجمع البيانات بنفس هذه الـ Keys
+        const cart = window.CartAPI ? window.CartAPI.getCart() : [];
         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        container.innerHTML = cart.map((item) => `
-            <div class="checkout-item-row">
-                <span class="checkout-item-name">
-                    ${escapeHtml(item.name)}${item.size ? ` (${escapeHtml(item.size)})` : ''}
-                    <span class="checkout-item-qty">× ${item.quantity}</span>
-                </span>
-                <span class="checkout-item-price">EGP ${item.price * item.quantity}</span>
-            </div>
-        `).join('');
         
-        totalEl.textContent = 'EGP ' + total.toFixed(0);
-    }
-
-    function buildOrderObject() {
-        const cart = getCartItems();
-        const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-
-        // هنا قمنا بالربط مع الـ IDs الحقيقية المفتوحة في لقطة الشاشة لموقعك
         return {
             orderId: 'ORD-' + Date.now().toString().slice(-6),
             orderTime: new Date().toISOString(),
             items: cart,
             total: total,
-            customerName: document.getElementById('customer-name')?.value || document.querySelector('input[type="text"]')?.value || "عمر عيسى",
-            customerPhone: document.getElementById('customer-phone')?.value || document.querySelector('input[type="tel"]')?.value || "01555054885",
-            customerArea: document.getElementById('customer-region')?.value || "دكرنس",
-            customerAddress: document.getElementById('customer-address')?.value || "لافا",
-            customerNotes: document.getElementById('customer-notes')?.value || "تجربه",
+            customerName: formData.get('customer-name'),
+            customerPhone: formData.get('customer-phone'),
+            customerArea: formData.get('customer-area'),
+            customerAddress: formData.get('customer-address'),
+            customerNotes: formData.get('customer-notes') || '',
             paymentMethod: 'كاش عند الاستلام',
         };
     }
 
+    // 3. دالة بناء نص الرسالة المنسق لتليجرام
     function buildTelegramMessage(order) {
         let message = `🍔 *طلب جديد - INSTA FOOD*\n`;
         message += `🔖 *رقم الطلب:* ${order.orderId}\n\n`;
@@ -84,47 +46,56 @@
         return message;
     }
 
+    // 4. الدالة النهائية المعدلة لإرسال البيانات دون أخطاء
     function handleSubmit(e) {
         e.preventDefault();
-        const cart = getCartItems();
         
-        if (cart.length === 0) {
-            alert('عربتك فاضية، ارجع للمنيو وضيف حاجة الأول.');
-            return;
-        }
-
-        const order = buildOrderObject();
+        const form = document.getElementById('checkout-form');
+        const formData = new FormData(form);
+        
+        // بناء كائن الطلب ونص الرسالة
+        const order = buildOrderObject(formData);
         const message = buildTelegramMessage(order);
 
-        sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
+        // حفظ تفاصيل الطلب مؤقتاً لعرضها في صفحة الشكر
+        sessionStorage.setItem('insta-food-last-order', JSON.stringify(order));
 
-        // إرسال الطلب إلى مسار الـ API في فيرسال
-        fetch("/api/telegram", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: message })
+        // إرسال البيانات إلى السيرفر الخلفي في فيرسال
+        fetch("/api/telegram", { 
+            method: "POST", 
+            headers: { 
+                "Content-Type": "application/json" 
+            }, 
+            body: JSON.stringify({ message: message }) // نرسل النص المنسق داخل كائن يحمل اسم message
         })
         .then(async (response) => {
             const data = await response.json();
+            
             if (!response.ok || !data.success) {
+                // إذا أرجع السيرفر خطأ، سنطبعه في الـ console لنعرف سببه تحديداً
+                console.error("خطأ من السيرفر:", data);
                 throw new Error(data.error || 'فشل إرسال الرسالة');
             }
-            // تفريغ السلة بعد النجاح
+            
+            // إذا نجح الإرسال، نقوم بتفريغ السلة والتوجه لصفحة النجاح
             if (window.CartAPI && typeof window.CartAPI.clearCart === 'function') {
                 window.CartAPI.clearCart();
-            } else {
-                localStorage.removeItem('cart');
             }
             window.location.href = 'order-confirmation.html';
         })
         .catch((err) => {
-            console.error(err);
-            alert('حدث خطأ أثناء إرسال الطلب للبوت، حاول مرة أخرى.');
+            console.error("تفاصيل الخطأ:", err);
+            alert('حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.');
         });
     }
 
+    // 5. ربط الأحداث عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function () {
-        renderCheckoutSummary();
+        // تأكد من استدعاء دالة ريندر السلة الخاصة بك هنا لكي تظهر البيانات فوراً
+        if (typeof renderCheckoutSummary === 'function') {
+            renderCheckoutSummary();
+        }
+        
         const form = document.getElementById('checkout-form');
         if (form) {
             form.addEventListener('submit', handleSubmit);
