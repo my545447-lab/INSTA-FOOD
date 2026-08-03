@@ -6,13 +6,13 @@ export default async function handler(req, res) {
 
     try {
 
-        const token = process.env.TELEGRAM_BOT_TOKEN;
+        const token = process.env.TELEGRAM_TOKEN;
         const chatId = process.env.TELEGRAM_CHAT_ID;
 
         const { message } = req.body;
 
         const response = await fetch(
-            `https://api.telegram.org/bot${8700661165:AAGWEmhEhH1fvjRSICUQ_hWbHNyD6PZ7RNg}/sendMessage`,
+            `https://api.telegram.org/bot${token}/sendMessage`,
             {
                 method: "POST",
                 headers: {
