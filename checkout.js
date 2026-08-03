@@ -89,34 +89,36 @@
 
         sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
 
-       const INSTANCE_ID = "instance186689";
-       const TOKEN = "pn7ycxyreph7phs2";
-
-     fetch(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
-     method: "POST",
-     headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-     },
-     body: new URLSearchParams({
-        token: TOKEN,
+        fetch("/api/send-order", {
+    method: "POST",
+    headers: {
+        "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
         to: RESTAURANT_PHONE,
         body: message
-     })
-     })
-       .then(async (response) => {
-        const data = await response.json();
+    })
+})
+.then(async(res)=>{
 
-       if (!response.ok || data.sent === false) {
-        throw new Error(data.error || "فشل إرسال الرسالة");
-        }
+    const data=await res.json();
 
-        window.CartAPI.clearCart();
-        window.location.href = "order-confirmation.html";
-        })
-         .catch((err) => {
-         console.error(err);
-         alert("حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
-        });
+    if(!data.success){
+        throw new Error(data.error);
+    }
+
+    window.CartAPI.clearCart();
+
+    window.location.href="order-confirmation.html";
+
+})
+.catch(err=>{
+
+    console.error(err);
+
+    alert("حدث خطأ أثناء إرسال الطلب.");
+
+});
     }
 
     document.addEventListener('DOMContentLoaded', function () {
