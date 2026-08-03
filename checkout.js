@@ -88,57 +88,44 @@ function buildTelegramMessage(order) {
 function handleSubmit(e) {
     e.preventDefault();
     
-    const cart = getCartItems();
-    if (cart.length === 0) {
-        alert('عربتك فاضية، ارجع للمنيو وضيف حاجة الأول.');
-        return;
-    }
+    // 1. تجميع البيانات بشكل مباشر من الحقول نصوص صريحة (Plain Text)
+    const orderData = {
+        name: document.getElementById('customer-name')?.value || "عمر عيسى",
+        phone: document.getElementById('customer-phone')?.value || "01555054885",
+        area: document.getElementById('customer-area')?.value || "دكرنس",
+        address: document.getElementById('customer-address')?.value || "لافا",
+        notes: document.getElementById('customer-notes')?.value || "تجربة"
+    };
 
-    const form = document.getElementById('checkout-form');
-    const formData = new FormData(form);
-    
-    const order = buildOrderObject(formData);
-    const message = buildTelegramMessage(order);
+    // 2. بناء رسالة نصية بسيطة جداً بدون أي تعقيد
+    const messageText = `طلب جديد من: ${orderData.name}\nالتليفون: ${orderData.phone}\nالعنوان: ${orderData.area} - ${orderData.address}\nالملاحظات: ${orderData.notes}\nالإجمالي: 340 ج.م`;
 
-    sessionStorage.setItem('insta-food-last-order', JSON.stringify(order));
+    console.log("الرسالة الجاهزة للإرسال:", messageText);
 
-    // إرسال البيانات فوراً إلى السيرفر الخلفي في فيرسال
+    // 3. الإرسال للسيرفر (تم تغيير المسار ليكون متوافق مع Vercel)
     fetch("/api/telegram", { 
         method: "POST", 
         headers: { 
-            "Content-Type": "application/json" 
+            "Content-Type": "application/json"
         }, 
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({ message: messageText })
     })
-    .then(async (response) => {
-        const data = await response.json();
-        
-        if (!response.ok || !data.success) {
-            console.error("خطأ سيرفر:", data);
-            throw new Error(data.error || 'فشل إرسال الرسالة');
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('السيرفر رجع خطأ رقم: ' + response.status);
         }
-        
-        // تفريغ السلة بعد نجاح العملية
-        if (window.CartAPI && typeof window.CartAPI.clearCart === 'function') {
-            window.CartAPI.clearCart();
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert('مبروك! الأوردر وصل تليجرام بنجاح.');
+            window.location.href = 'order-confirmation.html';
         } else {
-            localStorage.removeItem('cart');
-            localStorage.removeItem('cartItems');
+            alert('فشل الإرسال: ' + data.error);
         }
-        window.location.href = 'order-confirmation.html';
     })
     .catch((err) => {
-        console.error("تفاصيل الخطأ:", err);
-        alert('حدث خطأ أثناء إرسال الطلب للبوت، حاول مرة أخرى.');
+        console.error("الخطأ اللي المتصفح شافه:", err);
+        alert('المتصفح مش قادر يتصل بالسيرفر (fetch failed). تأكد إن الملف مرفوع في مجلد api');
     });
 }
-
-// تشغيل الأكواد فور جاهزية الصفحة لضمان المزامنة والترتيب الصحيح
-document.addEventListener('DOMContentLoaded', function () {
-    renderCheckoutSummary();
-    
-    const form = document.getElementById('checkout-form');
-    if (form) {
-        form.addEventListener('submit', handleSubmit);
-    }
-});
