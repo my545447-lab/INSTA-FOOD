@@ -1,21 +1,35 @@
-export default async function handler(req, res) {
-    if (req.method !== "POST") {
-        return res.status(405).json({ success: false, error: "Method not allowed" });
+export const config = {
+    runtime: 'edge', // تشغيل الملف بأعلى سرعة وتوافق مع دوال الاتصال الخارجية
+};
+
+export default async function handler(request) {
+    // السماح فقط بطلبات POST
+    if (request.method !== "POST") {
+        return new Response(JSON.stringify({ success: false, error: "Method not allowed" }), {
+            status: 405,
+            headers: { "Content-Type": "application/json" }
+        });
     }
 
     try {
+        // جلب نص الرسالة المرسلة من المتصفح
+        const { message } = await request.json();
+        
+        // جلب متغيرات البيئة السرية المضافة في فيرسال
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const chatId = process.env.TELEGRAM_CHAT_ID;
-        const { message } = req.body;
 
         if (!token || !chatId) {
-            return res.status(500).json({ success: false, error: "Environment variables are missing" });
+            return new Response(JSON.stringify({ success: false, error: "Environment variables are missing" }), {
+                status: 500,
+                headers: { "Content-Type": "application/json" }
+            });
         }
 
         const telegramUrl = `https://telegram.org{token}/sendMessage`;
 
-        // أرسلنا البيانات هنا كنص عادي بدون Markdown لضمان عدم حدوث خطأ 500 بسبب الرموز والأرقام العربية
-        const response = await fetch(telegramUrl, {
+        // تنفيذ طلب الإرسال إلى تليجرام مع ضبط التوقيت والأمان
+        const telegramResponse = await fetch(telegramUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -24,15 +38,24 @@ export default async function handler(req, res) {
             })
         });
 
-        const data = await response.json();
+        const data = await telegramResponse.json();
 
-        if (!response.ok || !data.ok) {
-            return res.status(500).json({ success: false, telegram: data, error: data.description || "Telegram API Error" });
+        if (!telegramResponse.ok || !data.ok) {
+            return new Response(JSON.stringify({ success: false, error: data.description || "Telegram API Error" }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" }
+            });
         }
 
-        return res.status(200).json({ success: true });
+        return new Response(JSON.stringify({ success: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+        });
 
     } catch (err) {
-        return res.status(500).json({ success: false, error: err.message });
+        return new Response(JSON.stringify({ success: false, error: err.message }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" }
+        });
     }
 }
