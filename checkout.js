@@ -41,50 +41,7 @@ function renderCheckoutSummary() {
     totalEl.textContent = 'EGP ' + total.toFixed(0);
 }
 
-// 3. دالة تجميع البيانات من حقول الـ HTML بدقة
-function buildOrderObject(formData) {
-    const cart = getCartItems();
-    const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-    
-    return {
-        orderId: 'ORD-' + Date.now().toString().slice(-6),
-        orderTime: new Date().toISOString(),
-        items: cart,
-        total: total,
-        customerName: formData.get('customer-name') || document.getElementById('customer-name')?.value || "عمر عيسى",
-        customerPhone: formData.get('customer-phone') || document.getElementById('customer-phone')?.value || "01555054885",
-        customerArea: formData.get('customer-area') || document.getElementById('customer-area')?.value || "دكرنس",
-        customerAddress: formData.get('customer-address') || document.getElementById('customer-address')?.value || "لافا",
-        customerNotes: formData.get('customer-notes') || document.getElementById('customer-notes')?.value || '',
-        paymentMethod: 'كاش عند الاستلام',
-    };
-}
-
-// 4. دالة تنسيق الرسالة النصية لتليجرام
-function buildTelegramMessage(order) {
-    let message = `🍔 *طلب جديد - INSTA FOOD*\n`;
-    message += `🔖 *رقم الطلب:* ${order.orderId}\n\n`;
-    message += `*الأصناف:*\n`;
-    
-    order.items.forEach((item) => {
-        const sizeLabel = item.size ? ` (${item.size})` : '';
-        message += `• ${item.name}${sizeLabel} × ${item.quantity} = EGP ${item.price * item.quantity}\n`;
-    });
-    
-    message += `\n*الاجمالي: EGP ${order.total.toFixed(0)}*\n`;
-    message += `\n---------------------------\n`;
-    message += `👤 *الاسم:* ${order.customerName}\n`;
-    message += `📞 *التليفون:* ${order.customerPhone}\n`;
-    message += `📍 *المنطقة:* ${order.customerArea}\n`;
-    message += `🏠 *العنوان:* ${order.customerAddress}\n`;
-    if (order.customerNotes && order.customerNotes.trim()) {
-        message += `📝 *ملاحظات:* ${order.customerNotes}\n`;
-    }
-    message += `💳 *طريقة الدفع:* ${order.paymentMethod}\n`;
-    return message;
-}
-
-// 5. دالة تنفيذ الإرسال عند الضغط على تأكيد الطلب
+// 3. دالة تنفيذ الإرسال المباشر إلى تليجرام عند الضغط على تأكيد الطلب
 function handleSubmit(e) {
     e.preventDefault();
     
@@ -94,53 +51,73 @@ function handleSubmit(e) {
         return;
     }
 
-    const form = document.getElementById('checkout-form');
-    const formData = new FormData(form);
-    
-    // ربط ديناميكي كامل لقراءة بيانات العميل الحقيقية مع أصنافه وسعره المنسق لتليجرام
-    const order = buildOrderObject(formData);
-    const messageText = buildTelegramMessage(order);
+    // تجميع البيانات ديناميكياً من حقول الـ HTML الخاصة بموقعك
+    const orderData = {
+        orderId: 'ORD-' + Date.now().toString().slice(-6),
+        name: document.getElementById('customer-name')?.value || "عمر عيسى",
+        phone: document.getElementById('customer-phone')?.value || "01555054885",
+        area: document.getElementById('customer-area')?.value || "دكرنس",
+        address: document.getElementById('customer-address')?.value || "لافا",
+        notes: document.getElementById('customer-notes')?.value || ""
+    };
 
-    console.log("الرسالة الجاهزة للإرسال:", messageText);
-    sessionStorage.setItem('insta-food-last-order', JSON.stringify(order));
+    // بناء قائمة المنتجات ديناميكياً للرسالة
+    let productsText = "";
+    cart.forEach(item => {
+        const sizeLabel = item.size ? ` (${item.size})` : '';
+        productsText += `• ${item.name}${sizeLabel} × ${item.quantity} = EGP ${item.price * item.quantity}\n`;
+    });
 
-    // الإرسال للسيرفر
-    fetch("/api/telegram", { 
+    const totalAmount = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+    // تنسيق نص الرسالة النهائي ليظهر بشكل احترافي ومنظم في تليجرام
+    const messageText = `🍔 *طلب جديد - INSTA FOOD*\n🔖 *رقم الطلب:* ${orderData.orderId}\n\n👤 *الاسم:* ${orderData.name}\n📞 *التليفون:* ${orderData.phone}\n📍 *المنطقة:* ${orderData.area}\n🏠 *العنوان:* ${orderData.address}\n${orderData.notes ? `📝 *ملاحظات:* ${orderData.notes}\n` : ''}\n🛒 *الأصناف:*\n${productsText}\n💰 *الإجمالي النهائي:* EGP ${totalAmount.toFixed(0)}`;
+
+    // ==========================================
+    // ⚠️ ضع بيانات البوت الخاصة بك هنا مباشرة ⚠️
+    // ==========================================
+    const botToken = "7449557457:AAFlw9fO8hSg6Vsh0E8C4w_kF-mS-8g_I2U"; // استبدل هذا بالتوكن الحقيقي الخاص بك من BotFather
+    const chatId = "5116514547";     // استبدل هذا بـ الـ Chat ID الحقيقي الخاص بك
+    // ==========================================
+
+    const telegramUrl = `https://telegram.org{botToken}/sendMessage`;
+
+    // الإرسال المباشر الفوري من المتصفح إلى سيرفر تليجرام
+    fetch(telegramUrl, { 
         method: "POST", 
-        headers: { 
-            "Content-Type": "application/json"
-        }, 
-        body: JSON.stringify({ message: messageText })
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ 
+            chat_id: chatId, 
+            text: messageText,
+            parse_mode: "Markdown" // لتنسيق النصوص والخط العريض
+        })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('السيرفر رجع خطأ رقم: ' + response.status);
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert('مبروك! الأوردر وصل تليجرام بنجاح.');
+        if (data.ok) {
+            alert('مبروك! الأوردر وصل تليجرام فوراً وبنجاح 🎉');
             
-            // تفريغ السلة بعد نجاح العملية
+            // مسح وتفريغ السلة بعد نجاح الشراء لكي لا تتكرر
             if (window.CartAPI && typeof window.CartAPI.clearCart === 'function') {
                 window.CartAPI.clearCart();
             } else {
                 localStorage.removeItem('cart');
+                localStorage.removeItem('cartItems');
             }
             
+            // التوجه لصفحة النجاح
             window.location.href = 'order-confirmation.html';
         } else {
-            alert('فشل الإرسال من السيرفر: ' + data.error);
+            alert('تليجرام رفض الإرسال، تأكد من التوكن والـ ID المكتوبين: ' + data.description);
         }
     })
     .catch((err) => {
-        console.error("الخطأ اللي المتصفح شافه:", err);
-        alert('حدث خطأ أثناء إرسال الطلب، تأكد من إعدادات السيرفر.');
+        console.error(err);
+        alert('حدث خطأ أثناء الاتصال بتليجرام، تأكد من إنترنت جهازك.');
     });
 }
 
-// 6. السطر الحاسم لتشغيل الكود وربطه بالصفحة فور تحميلها (الذي كان ناقصاً)
+// 4. تشغيل الأكواد وعرض السلة فور تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function () {
     renderCheckoutSummary();
     
